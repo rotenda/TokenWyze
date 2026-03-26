@@ -3,420 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Khokha 3 — TokenisedSA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --gold: #C9A84C;
-      --gold-light: #E8C96A;
-      --gold-dim: #8B7035;
-      --ink: #0D0D0D;
-      --ink-soft: #2C2C2C;
-      --muted: #6B6B6B;
-      --border: rgba(201,168,76,0.18);
-      --surface: #F7F4EE;
-      --white: #FDFCF9;
-    }
-    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); }
-
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--ink); border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5vw; height: 58px;
-    }
-    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); letter-spacing: 0.08em; text-decoration: none; }
-    .nav-back { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
-    .nav-back:hover { color: var(--gold); }
-
-    .post-hero {
-      background: var(--ink);
-      padding: 80px 5vw 80px;
-      border-bottom: 1px solid var(--border);
-    }
-    .post-breadcrumb {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--gold-dim);
-      margin-bottom: 24px;
-    }
-    .post-hero-tag {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--gold);
-      background: rgba(201,168,76,0.12);
-      padding: 4px 12px; border-radius: 2px;
-      display: inline-block; margin-bottom: 24px;
-    }
-    .post-hero-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(32px, 5vw, 64px);
-      line-height: 1.05; color: var(--white);
-      max-width: 800px; margin-bottom: 28px;
-    }
-    .post-hero-title em { font-style: italic; color: var(--gold); }
-    .post-hero-sub {
-      font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55);
-      max-width: 680px; line-height: 1.75; margin-bottom: 40px;
-    }
-    .post-meta-bar {
-      display: flex; align-items: center; gap: 24px;
-      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08);
-      font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em;
-    }
-    .post-meta-bar span { display: flex; align-items: center; gap: 6px; }
-    .post-meta-bar .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); }
-
-    .post-body-wrap {
-      max-width: 740px;
-      margin: 0 auto;
-      padding: 80px 5vw;
-    }
-    .post-lead {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px; color: var(--ink-soft);
-      line-height: 1.6; margin-bottom: 40px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
-    .post-body p {
-      font-size: 17px; font-weight: 300; color: #333;
-      line-height: 1.85; margin-bottom: 28px;
-    }
-    .post-body h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 34px; letter-spacing: 0.04em;
-      color: var(--ink); margin: 56px 0 20px;
-    }
-    .post-body h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px; color: var(--ink);
-      margin: 40px 0 16px;
-    }
-    .post-body blockquote {
-      border-left: 3px solid var(--gold);
-      padding: 4px 0 4px 28px;
-      margin: 40px 0;
-    }
-    .post-body blockquote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px; color: var(--ink-soft);
-      line-height: 1.55; font-style: italic; margin: 0;
-    }
-    .callout {
-      background: var(--surface);
-      border: 1px solid rgba(201,168,76,0.2);
-      padding: 28px 32px; margin: 40px 0;
-    }
-    .callout-label {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.25em;
-      text-transform: uppercase; color: var(--gold-dim);
-      margin-bottom: 12px;
-    }
-    .callout p {
-      font-size: 15px !important; margin: 0 !important; color: var(--ink-soft) !important;
-    }
-
-    .post-footer-tags {
-      display: flex; gap: 8px; flex-wrap: wrap;
-      padding-top: 48px; border-top: 1px solid rgba(0,0,0,0.08);
-      margin-top: 48px;
-    }
-    .pfooter-tag {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--muted);
-      background: rgba(0,0,0,0.05); padding: 6px 14px; border-radius: 2px;
-    }
-
-    footer {
-      background: var(--ink); padding: 40px 5vw;
-      border-top: 1px solid rgba(201,168,76,0.15);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); letter-spacing: 0.06em; }
-    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
-  </style>
-</head>
-<body>
-
-  <nav>
-    <a class="nav-logo" href="index.html">TokenisedSA</a>
-    <a class="nav-back" href="index.html">← Back to All Articles</a>
-  </nav>
-
-  <header class="post-hero">
-    <p class="post-breadcrumb">Analysis · South Africa · CBDC</p>
-    <span class="post-hero-tag">Featured Analysis</span>
-    <h1 class="post-hero-title">
-      Project Khokha 3: Why the SARB's
-      <em>Tokenised Wholesale CBDC</em>
-      Experiment Changes Everything
-    </h1>
-    <p class="post-hero-sub">
-      The South African Reserve Bank's Project Khokha isn't just a technical pilot —
-      it's a signal that the country's financial infrastructure is quietly being rebuilt
-      on programmable rails.
-    </p>
-    <div class="post-meta-bar">
-      <span>March 2025</span>
-      <span class="dot"></span>
-      <span>8 min read</span>
-      <span class="dot"></span>
-      <span>Capital Markets · SARB · CBDC</span>
-    </div>
-  </header>
-
-  <main class="post-body-wrap">
-
-    <p class="post-lead">
-      South Africa has been running one of the world's most sophisticated central bank
-      digital currency experiments for years. Most people haven't noticed — but the
-      global financial establishment certainly has.
-    </p>
-
-    <div class="post-body">
-      <p>
-        When the South African Reserve Bank first launched Project Khokha in 2018, the goal
-        was modest: prove that a distributed ledger could handle interbank settlements between
-        commercial banks. The experiment worked. But more importantly, it revealed something
-        about South Africa's financial system that few had articulated clearly: the country
-        had the infrastructure, the regulatory appetite, and the institutional coordination
-        to do something genuinely ambitious.
-      </p>
-
-      <p>
-        Seven years later, Project Khokha 3 is testing the next frontier — a wholesale
-        central bank digital currency that can not only settle interbank transactions, but
-        execute them through programmable smart contracts, potentially collapsing a settlement
-        cycle that still takes two days in most markets into something that happens in seconds.
-      </p>
-
-      <h2>What Is a Wholesale CBDC, and Why Does It Matter?</h2>
-
-      <p>
-        Most public discussion of CBDCs focuses on retail versions — digital money that
-        ordinary citizens might hold in digital wallets, replacing or supplementing physical
-        cash. Wholesale CBDCs are different. They operate in the plumbing of the financial
-        system, moving between banks, clearing houses, and central banks in the settlement
-        of large financial transactions.
-      </p>
-
-      <blockquote>
-        <p>
-          "The settlement of financial transactions is the most important function nobody
-          thinks about. It is the invisible infrastructure on which every market depends."
-        </p>
-      </blockquote>
-
-      <p>
-        Today's settlement systems — Strate in South Africa, DTCC in the United States,
-        Euroclear in Europe — work well but carry significant hidden costs: counterparty risk
-        during the settlement window, capital tied up as collateral, manual reconciliation
-        across multiple ledgers, and the systemic risk that accumulates whenever large
-        positions remain unsettled.
-      </p>
-
-      <p>
-        A tokenised wholesale CBDC changes the mechanics fundamentally. Instead of two banks
-        sending instructions to a central clearinghouse which then nets and settles overnight,
-        a programmable token representing central bank money can move simultaneously with
-        the asset being purchased — what technologists call atomic settlement, or
-        delivery-versus-payment in real time.
-      </p>
-
-      <h2>What Project Khokha 3 Is Actually Testing</h2>
-
-      <div class="callout">
-        <div class="callout-label">Key Insight</div>
-        <p>
-          Project Khokha 3 is not testing whether blockchain technology works. It is testing
-          whether South Africa's legal, regulatory, and institutional frameworks can be adapted
-          to treat tokenised central bank money as legally equivalent to reserves held at the
-          SARB — a question with profound implications for how every financial transaction in
-          this country settles.
-        </p>
-      </div>
-
-      <p>
-        The technical architecture builds on the learnings from earlier Khokha phases.
-        A permissioned distributed ledger — not a public blockchain — connects participating
-        commercial banks and the SARB. On this ledger, wholesale CBDC tokens are issued by
-        the SARB and transferred between banks as settlement for financial transactions.
-      </p>
-
-      <p>
-        What distinguishes Khokha 3 is the integration of smart contracts into this
-        settlement infrastructure. The pilot is testing whether complex financial instruments —
-        repo agreements, government bond purchases, interbank loans — can be encoded in
-        smart contracts that automatically execute settlement when pre-agreed conditions are
-        met. The humans agree the trade. The code executes it. The central bank money moves
-        automatically.
-      </p>
-
-      <h3>The Legal Question Nobody Wants to Answer First</h3>
-
-      <p>
-        The technical infrastructure is, in many ways, the easier problem. The harder problem
-        is legal and regulatory: what is a tokenised CBDC, legally speaking? Is it a claim on
-        the central bank in the same way a reserve balance is? Can it be held as collateral?
-        How does insolvency law treat it if a participant bank fails mid-transaction?
-      </p>
-
-      <p>
-        These questions are not unique to South Africa — they are being grappled with
-        simultaneously in Singapore, the European Union, the United Kingdom, and the United
-        States. But South Africa has an advantage: the SARB and the FSCA have demonstrated
-        a willingness to work through these questions in public, in real pilots with real
-        money, rather than waiting for perfect legal clarity that may never arrive.
-      </p>
-
-      <h2>What This Means for Capital Markets in South Africa</h2>
-
-      <p>
-        The implications ripple far beyond interbank settlement. If South Africa successfully
-        establishes a legal and technical framework for tokenised central bank money, it
-        creates the foundation for a much broader transformation of how capital markets
-        function in this country.
-      </p>
-
-      <p>
-        Government bonds could be issued as tokens and settled instantly against CBDC.
-        Equities listed on the JSE could be tokenised and settled on the same infrastructure.
-        Corporate bonds, repo agreements, derivatives — all of them could eventually plug
-        into a common settlement layer built on programmable money.
-      </p>
-
-      <p>
-        The prize, for South Africa, goes beyond operational efficiency. A country with
-        modern digital financial infrastructure — genuinely modern, not the 1990s infrastructure
-        that most financial centres are still running — becomes a significantly more attractive
-        destination for capital. For an economy that has struggled with capital flight and
-        currency weakness, that matters enormously.
-      </p>
-
-      <h2>The Road Ahead</h2>
-
-      <p>
-        Project Khokha 3 is still a pilot. The SARB has been careful not to overstate what
-        the experiments prove, and the path from successful pilot to production infrastructure
-        is long and technically demanding. Legal frameworks need to be updated. Participants
-        need to invest in new systems. The FSCA's digital asset framework needs to mature.
-      </p>
-
-      <p>
-        But the direction of travel is clear, and South Africa is further along it than most
-        observers realise. The question is no longer whether tokenised financial infrastructure
-        is coming — it is whether South Africa moves fast enough to be a leader in its
-        adoption, or waits until the global standard is set elsewhere and then scrambles to
-        catch up.
-      </p>
-
-      <p>
-        The SARB, to its credit, seems to understand the stakes.
-      </p>
-    </div>
-
-    <div class="post-footer-tags">
-      <span class="pfooter-tag">SARB</span>
-      <span class="pfooter-tag">CBDC</span>
-      <span class="pfooter-tag">Project Khokha</span>
-      <span class="pfooter-tag">Settlement</span>
-      <span class="pfooter-tag">South Africa</span>
-      <span class="pfooter-tag">Capital Markets</span>
-    </div>
-
-  </main>
-
-  <footer>
-    <a href="index.html" class="footer-logo">TokenisedSA</a>
-    <p class="footer-copy">© 2025 TokenisedSA</p>
-  </footer>
-
-</body>
-</html>
-
-# TokenisedSA Blog
-
-South Africa's leading voice on tokenisation and capital markets.
-
-## Local Development
-
-Just open `index.html` in your browser — no build step required.
-
-## Deploying to GitHub Pages
-
-### Step 1: Create a GitHub Repository
-
-1. Go to [github.com](https://github.com) and sign in
-2. Click the **+** icon → **New repository**
-3. Name it `tokenisedsa` (or any name you prefer)
-4. Set it to **Public**
-5. Click **Create repository**
-
-### Step 2: Upload Your Files
-
-**Option A — GitHub Web UI (easiest):**
-1. In your new repo, click **Add file** → **Upload files**
-2. Drag and drop all files from this folder (`index.html`, `post.html`, `README.md`)
-3. Click **Commit changes**
-
-**Option B — Git command line:**
-```bash
-cd /path/to/tokenisation-blog
-git init
-git add .
-git commit -m "Initial blog launch"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/tokenisedsa.git
-git push -u origin main
-```
-
-### Step 3: Enable GitHub Pages
-
-1. In your repository, go to **Settings**
-2. In the left sidebar, click **Pages**
-3. Under **Source**, select **Deploy from a branch**
-4. Choose branch: **main**, folder: **/ (root)**
-5. Click **Save**
-
-### Step 4: Your Site Is Live!
-
-Within 1–2 minutes your blog will be live at:
-```
-https://YOUR_USERNAME.github.io/tokenisedsa/
-```
-
-## Custom Domain (Optional)
-
-To use a custom domain like `tokenisedsa.co.za`:
-1. Create a file named `CNAME` in your repo with just your domain: `tokenisedsa.co.za`
-2. In GitHub Pages settings, enter your custom domain
-3. Update your DNS with your domain registrar — add a CNAME record pointing to `YOUR_USERNAME.github.io`
-
-## Adding New Posts
-
-1. Duplicate `post.html` → rename it (e.g. `fractional-property.html`)
-2. Edit the content inside the HTML
-3. Add a link to it from `index.html`
-4. Commit and push — GitHub Pages auto-deploys within minutes
-
-## File Structure
-
-```
-tokenisedsa/
-├── index.html      ← Homepage with article grid
-├── post.html       ← Sample article (Project Khokha)
-├── CNAME           ← Add this for custom domain (optional)
-└── README.md       ← This file
-```
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TokenisedSA — The Future of Capital Markets</title>
+  <title>TokenWyze — The Future of Capital Markets</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -900,7 +487,7 @@ tokenisedsa/
 
   <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="#">TokenisedSA</a>
+    <a class="nav-logo" href="#">TokenWyze</a>
     <div class="nav-links">
       <a href="#articles">Analysis</a>
       <a href="#south-africa">SA Focus</a>
@@ -1165,12 +752,12 @@ tokenisedsa/
   <!-- ABOUT -->
   <section class="about-strip" id="about">
     <div class="about-avatar">
-      <div class="about-avatar-inner">TS</div>
+      <div class="about-avatar-inner">TW/div>
     </div>
     <div>
-      <h2 class="about-title">The <span>Voice</span> Behind TokenisedSA</h2>
+      <h2 class="about-title">The <span>Voice</span> Behind TokenWyze</h2>
       <p class="about-bio">
-        TokenisedSA is an independent publication focused on how tokenisation is reshaping
+        TokenWyze is an independent publication focused on how tokenisation is reshaping
         capital markets — with an unmatched focus on South Africa. Written by a practitioner
         at the intersection of finance, technology, and policy, every piece is grounded in
         how these changes actually affect markets, institutions, and everyday investors.
@@ -1190,7 +777,7 @@ tokenisedsa/
   <footer>
     <div class="footer-top">
       <div>
-        <div class="footer-logo">TokenisedSA</div>
+        <div class="footer-logo">TokenWyze</div>
         <div class="footer-tagline">South Africa's voice on tokenisation & capital markets</div>
       </div>
       <div class="footer-links">
@@ -1210,10 +797,436 @@ tokenisedsa/
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 TokenisedSA. All rights reserved.</span>
+      <span>© 2025 TokenWyze. All rights reserved.</span>
       <span>Built for South Africa's financial future.</span>
     </div>
   </footer>
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Khokha 3 — TokenWyze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+      --gold-dim: #8B7035;
+      --ink: #0D0D0D;
+      --ink-soft: #2C2C2C;
+      --muted: #6B6B6B;
+      --border: rgba(201,168,76,0.18);
+      --surface: #F7F4EE;
+      --white: #FDFCF9;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--ink); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 58px;
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); letter-spacing: 0.08em; text-decoration: none; }
+    .nav-back { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--gold); }
+
+    .post-hero {
+      background: var(--ink);
+      padding: 80px 5vw 80px;
+      border-bottom: 1px solid var(--border);
+    }
+    .post-breadcrumb {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-dim);
+      margin-bottom: 24px;
+    }
+    .post-hero-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      background: rgba(201,168,76,0.12);
+      padding: 4px 12px; border-radius: 2px;
+      display: inline-block; margin-bottom: 24px;
+    }
+    .post-hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 64px);
+      line-height: 1.05; color: var(--white);
+      max-width: 800px; margin-bottom: 28px;
+    }
+    .post-hero-title em { font-style: italic; color: var(--gold); }
+    .post-hero-sub {
+      font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55);
+      max-width: 680px; line-height: 1.75; margin-bottom: 40px;
+    }
+    .post-meta-bar {
+      display: flex; align-items: center; gap: 24px;
+      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em;
+    }
+    .post-meta-bar span { display: flex; align-items: center; gap: 6px; }
+    .post-meta-bar .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+
+    .post-body-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 80px 5vw;
+    }
+    .post-lead {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px; color: var(--ink-soft);
+      line-height: 1.6; margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .post-body p {
+      font-size: 17px; font-weight: 300; color: #333;
+      line-height: 1.85; margin-bottom: 28px;
+    }
+    .post-body h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 34px; letter-spacing: 0.04em;
+      color: var(--ink); margin: 56px 0 20px;
+    }
+    .post-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px; color: var(--ink);
+      margin: 40px 0 16px;
+    }
+    .post-body blockquote {
+      border-left: 3px solid var(--gold);
+      padding: 4px 0 4px 28px;
+      margin: 40px 0;
+    }
+    .post-body blockquote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px; color: var(--ink-soft);
+      line-height: 1.55; font-style: italic; margin: 0;
+    }
+    .callout {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 28px 32px; margin: 40px 0;
+    }
+    .callout-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold-dim);
+      margin-bottom: 12px;
+    }
+    .callout p {
+      font-size: 15px !important; margin: 0 !important; color: var(--ink-soft) !important;
+    }
+
+    .post-footer-tags {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      padding-top: 48px; border-top: 1px solid rgba(0,0,0,0.08);
+      margin-top: 48px;
+    }
+    .pfooter-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+      background: rgba(0,0,0,0.05); padding: 6px 14px; border-radius: 2px;
+    }
+
+    footer {
+      background: var(--ink); padding: 40px 5vw;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); letter-spacing: 0.06em; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">TokenWyze</a>
+    <a class="nav-back" href="index.html">← Back to All Articles</a>
+  </nav>
+
+  <header class="post-hero">
+    <p class="post-breadcrumb">Analysis · South Africa · CBDC</p>
+    <span class="post-hero-tag">Featured Analysis</span>
+    <h1 class="post-hero-title">
+      Project Khokha 3: Why the SARB's
+      <em>Tokenised Wholesale CBDC</em>
+      Experiment Changes Everything
+    </h1>
+    <p class="post-hero-sub">
+      The South African Reserve Bank's Project Khokha isn't just a technical pilot —
+      it's a signal that the country's financial infrastructure is quietly being rebuilt
+      on programmable rails.
+    </p>
+    <div class="post-meta-bar">
+      <span>March 2025</span>
+      <span class="dot"></span>
+      <span>8 min read</span>
+      <span class="dot"></span>
+      <span>Capital Markets · SARB · CBDC</span>
+    </div>
+  </header>
+
+  <main class="post-body-wrap">
+
+    <p class="post-lead">
+      South Africa has been running one of the world's most sophisticated central bank
+      digital currency experiments for years. Most people haven't noticed — but the
+      global financial establishment certainly has.
+    </p>
+
+    <div class="post-body">
+      <p>
+        When the South African Reserve Bank first launched Project Khokha in 2018, the goal
+        was modest: prove that a distributed ledger could handle interbank settlements between
+        commercial banks. The experiment worked. But more importantly, it revealed something
+        about South Africa's financial system that few had articulated clearly: the country
+        had the infrastructure, the regulatory appetite, and the institutional coordination
+        to do something genuinely ambitious.
+      </p>
+
+      <p>
+        Seven years later, Project Khokha 3 is testing the next frontier — a wholesale
+        central bank digital currency that can not only settle interbank transactions, but
+        execute them through programmable smart contracts, potentially collapsing a settlement
+        cycle that still takes two days in most markets into something that happens in seconds.
+      </p>
+
+      <h2>What Is a Wholesale CBDC, and Why Does It Matter?</h2>
+
+      <p>
+        Most public discussion of CBDCs focuses on retail versions — digital money that
+        ordinary citizens might hold in digital wallets, replacing or supplementing physical
+        cash. Wholesale CBDCs are different. They operate in the plumbing of the financial
+        system, moving between banks, clearing houses, and central banks in the settlement
+        of large financial transactions.
+      </p>
+
+      <blockquote>
+        <p>
+          "The settlement of financial transactions is the most important function nobody
+          thinks about. It is the invisible infrastructure on which every market depends."
+        </p>
+      </blockquote>
+
+      <p>
+        Today's settlement systems — Strate in South Africa, DTCC in the United States,
+        Euroclear in Europe — work well but carry significant hidden costs: counterparty risk
+        during the settlement window, capital tied up as collateral, manual reconciliation
+        across multiple ledgers, and the systemic risk that accumulates whenever large
+        positions remain unsettled.
+      </p>
+
+      <p>
+        A tokenised wholesale CBDC changes the mechanics fundamentally. Instead of two banks
+        sending instructions to a central clearinghouse which then nets and settles overnight,
+        a programmable token representing central bank money can move simultaneously with
+        the asset being purchased — what technologists call atomic settlement, or
+        delivery-versus-payment in real time.
+      </p>
+
+      <h2>What Project Khokha 3 Is Actually Testing</h2>
+
+      <div class="callout">
+        <div class="callout-label">Key Insight</div>
+        <p>
+          Project Khokha 3 is not testing whether blockchain technology works. It is testing
+          whether South Africa's legal, regulatory, and institutional frameworks can be adapted
+          to treat tokenised central bank money as legally equivalent to reserves held at the
+          SARB — a question with profound implications for how every financial transaction in
+          this country settles.
+        </p>
+      </div>
+
+      <p>
+        The technical architecture builds on the learnings from earlier Khokha phases.
+        A permissioned distributed ledger — not a public blockchain — connects participating
+        commercial banks and the SARB. On this ledger, wholesale CBDC tokens are issued by
+        the SARB and transferred between banks as settlement for financial transactions.
+      </p>
+
+      <p>
+        What distinguishes Khokha 3 is the integration of smart contracts into this
+        settlement infrastructure. The pilot is testing whether complex financial instruments —
+        repo agreements, government bond purchases, interbank loans — can be encoded in
+        smart contracts that automatically execute settlement when pre-agreed conditions are
+        met. The humans agree the trade. The code executes it. The central bank money moves
+        automatically.
+      </p>
+
+      <h3>The Legal Question Nobody Wants to Answer First</h3>
+
+      <p>
+        The technical infrastructure is, in many ways, the easier problem. The harder problem
+        is legal and regulatory: what is a tokenised CBDC, legally speaking? Is it a claim on
+        the central bank in the same way a reserve balance is? Can it be held as collateral?
+        How does insolvency law treat it if a participant bank fails mid-transaction?
+      </p>
+
+      <p>
+        These questions are not unique to South Africa — they are being grappled with
+        simultaneously in Singapore, the European Union, the United Kingdom, and the United
+        States. But South Africa has an advantage: the SARB and the FSCA have demonstrated
+        a willingness to work through these questions in public, in real pilots with real
+        money, rather than waiting for perfect legal clarity that may never arrive.
+      </p>
+
+      <h2>What This Means for Capital Markets in South Africa</h2>
+
+      <p>
+        The implications ripple far beyond interbank settlement. If South Africa successfully
+        establishes a legal and technical framework for tokenised central bank money, it
+        creates the foundation for a much broader transformation of how capital markets
+        function in this country.
+      </p>
+
+      <p>
+        Government bonds could be issued as tokens and settled instantly against CBDC.
+        Equities listed on the JSE could be tokenised and settled on the same infrastructure.
+        Corporate bonds, repo agreements, derivatives — all of them could eventually plug
+        into a common settlement layer built on programmable money.
+      </p>
+
+      <p>
+        The prize, for South Africa, goes beyond operational efficiency. A country with
+        modern digital financial infrastructure — genuinely modern, not the 1990s infrastructure
+        that most financial centres are still running — becomes a significantly more attractive
+        destination for capital. For an economy that has struggled with capital flight and
+        currency weakness, that matters enormously.
+      </p>
+
+      <h2>The Road Ahead</h2>
+
+      <p>
+        Project Khokha 3 is still a pilot. The SARB has been careful not to overstate what
+        the experiments prove, and the path from successful pilot to production infrastructure
+        is long and technically demanding. Legal frameworks need to be updated. Participants
+        need to invest in new systems. The FSCA's digital asset framework needs to mature.
+      </p>
+
+      <p>
+        But the direction of travel is clear, and South Africa is further along it than most
+        observers realise. The question is no longer whether tokenised financial infrastructure
+        is coming — it is whether South Africa moves fast enough to be a leader in its
+        adoption, or waits until the global standard is set elsewhere and then scrambles to
+        catch up.
+      </p>
+
+      <p>
+        The SARB, to its credit, seems to understand the stakes.
+      </p>
+    </div>
+
+    <div class="post-footer-tags">
+      <span class="pfooter-tag">SARB</span>
+      <span class="pfooter-tag">CBDC</span>
+      <span class="pfooter-tag">Project Khokha</span>
+      <span class="pfooter-tag">Settlement</span>
+      <span class="pfooter-tag">South Africa</span>
+      <span class="pfooter-tag">Capital Markets</span>
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="index.html" class="footer-logo">TokenWyze</a>
+    <p class="footer-copy">© 2025 TokenWyze</p>
+  </footer>
+
+</body>
+</html>
+
+# TokenWyze
+
+South Africa's leading voice on tokenisation and capital markets.
+
+## Local Development
+
+Just open `index.html` in your browser — no build step required.
+
+## Deploying to GitHub Pages with Custom Domain
+
+### Step 1: Create a GitHub Repository
+
+1. Go to [github.com](https://github.com) and sign in
+2. Click the **+** icon → **New repository**
+3. Name it `tokenwyze`
+4. Set it to **Public**
+5. Click **Create repository**
+
+### Step 2: Upload Your Files
+
+**Option A — GitHub Web UI (easiest):**
+1. In your new repo, click **Add file** → **Upload files**
+2. Drag and drop ALL files: `index.html`, `post.html`, `CNAME`, `README.md`
+3. Click **Commit changes**
+
+**Option B — Git command line:**
+```bash
+cd /path/to/tokenwyze
+git init
+git add .
+git commit -m "Initial launch — TokenWyze"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/tokenwyze.git
+git push -u origin main
+```
+
+### Step 3: Enable GitHub Pages
+
+1. In your repository, go to **Settings**
+2. In the left sidebar, click **Pages**
+3. Under **Source**, select **Deploy from a branch**
+4. Choose branch: **main**, folder: **/ (root)**
+5. Click **Save**
+
+### Step 4: Configure Your Custom Domain (tokenwyze.co.za)
+
+The `CNAME` file is already included and set to `tokenwyze.co.za`.
+
+Now update your DNS settings with your domain registrar (e.g. Afrihost, Domains.co.za, Xneelo):
+
+| Type  | Name | Value                          |
+|-------|------|--------------------------------|
+| A     | @    | 185.199.108.153                |
+| A     | @    | 185.199.109.153                |
+| A     | @    | 185.199.110.153                |
+| A     | @    | 185.199.111.153                |
+| CNAME | www  | YOUR_USERNAME.github.io        |
+
+Then in GitHub → Settings → Pages → Custom domain, enter: `tokenwyze.co.za` and click **Save**.
+
+Tick **Enforce HTTPS** once it appears (may take a few minutes after DNS propagates).
+
+### Step 5: Your Site Is Live!
+
+DNS propagation typically takes 15 minutes to a few hours. Once done, your blog will be live at:
+```
+https://tokenwyze.co.za
+```
+
+## Adding New Posts
+
+1. Duplicate `post.html` → rename it (e.g. `fractional-property.html`)
+2. Edit the content inside the HTML
+3. Add a link to it from `index.html`
+4. Commit and push — GitHub Pages auto-deploys within minutes
+
+## File Structure
+
+```
+tokenwyze/
+├── index.html      ← Homepage
+├── post.html       ← Sample article (Project Khokha)
+├── CNAME           ← Custom domain config (tokenwyze.co.za)
+└── README.md       ← This file
+```
+
+tokenwyze.co.za
