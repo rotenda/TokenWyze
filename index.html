@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TokenWyze — The Future of Capital Markets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+      --gold-dim: #8B7035;
+      --ink: #0D0D0D;
+      --ink-mid: #1A1A1A;
+      --ink-soft: #2C2C2C;
+      --muted: #6B6B6B;
+      --border: rgba(201,168,76,0.18);
+      --border-strong: rgba(201,168,76,0.35);
+      --surface: #F7F4EE;
+      --white: #FDFCF9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--ink);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 58px;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.65);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink);
+      background: var(--gold); border: none; cursor: pointer;
+      padding: 8px 20px; border-radius: 2px; transition: background 0.2s;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--gold-light); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--ink);
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px),
+        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(201,168,76,0.04) 80px);
+      pointer-events: none;
+    }
+    .hero-text {
+      padding: 80px 5vw 80px 5vw;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(60px, 7vw, 110px);
+      line-height: 0.92;
+      color: var(--white);
+      letter-spacing: 0.01em;
+      margin-bottom: 32px;
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--gold);
+      display: block;
+    }
+    .hero-sub {
+      font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.6);
+      max-width: 420px; line-height: 1.7; margin-bottom: 48px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; background: var(--gold); color: var(--ink);
+      padding: 14px 32px; border: none; cursor: pointer; border-radius: 2px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-light); }
+    .btn-ghost {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; background: transparent;
+      color: rgba(255,255,255,0.7);
+      padding: 14px 32px; border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer; border-radius: 2px; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-visual {
+      position: relative; overflow: hidden;
+      border-left: 1px solid var(--border);
+    }
+    .hero-ticker {
+      position: absolute; top: 0; bottom: 0; right: 0; left: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 60px 40px;
+      gap: 0;
+    }
+    .ticker-item {
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      padding: 18px 0;
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .ticker-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: rgba(255,255,255,0.9); letter-spacing: 0.06em; }
+    .ticker-val { font-size: 13px; color: var(--gold); font-weight: 500; }
+    .ticker-change { font-size: 11px; padding: 3px 8px; border-radius: 2px; font-weight: 600; }
+    .ticker-change.up { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .ticker-change.down { background: rgba(239,68,68,0.15); color: #f87171; }
+    .hero-stat-bar {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+    }
+    .stat-item {
+      padding: 24px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px; color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── TICKER TAPE ── */
+    .tape {
+      background: var(--gold); overflow: hidden;
+      padding: 10px 0; white-space: nowrap;
+    }
+    .tape-inner {
+      display: inline-block;
+      animation: tape 28s linear infinite;
+    }
+    .tape span {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--ink);
+      margin: 0 40px;
+    }
+    @keyframes tape { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 12px; margin-bottom: 40px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; max-width: 60px;
+      height: 1px; background: var(--gold-dim);
+    }
+
+    /* ── FEATURED POST ── */
+    .featured-section {
+      padding: 100px 5vw;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 0;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .featured-main {
+      padding: 56px 56px;
+      border-right: 1px solid rgba(0,0,0,0.08);
+    }
+    .post-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      background: rgba(201,168,76,0.12);
+      padding: 4px 12px; border-radius: 2px;
+      display: inline-block; margin-bottom: 20px;
+    }
+    .featured-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 3.5vw, 46px);
+      line-height: 1.1; color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .featured-title em { font-style: italic; color: var(--gold-dim); }
+    .featured-excerpt {
+      font-size: 16px; font-weight: 300; color: var(--muted);
+      line-height: 1.75; margin-bottom: 36px;
+    }
+    .post-meta {
+      display: flex; align-items: center; gap: 16px;
+      font-size: 12px; color: var(--muted);
+      letter-spacing: 0.06em; margin-bottom: 32px;
+    }
+    .post-meta span { display: flex; align-items: center; gap: 6px; }
+    .post-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
+    .read-link {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink);
+      text-decoration: none; border-bottom: 2px solid var(--gold);
+      padding-bottom: 2px; transition: color 0.2s;
+    }
+    .read-link:hover { color: var(--gold); }
+
+    .featured-sidebar { display: flex; flex-direction: column; }
+    .sidebar-article {
+      padding: 32px 36px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      flex: 1; cursor: pointer; transition: background 0.15s;
+    }
+    .sidebar-article:last-child { border-bottom: none; }
+    .sidebar-article:hover { background: var(--surface); }
+    .sidebar-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px; color: rgba(0,0,0,0.06);
+      line-height: 1; margin-bottom: 8px;
+    }
+    .sidebar-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px; line-height: 1.3; color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .sidebar-date { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* ── ARTICLE GRID ── */
+    .articles-section {
+      padding: 100px 5vw;
+      background: var(--surface);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .article-card {
+      background: var(--white);
+      padding: 36px 32px;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .article-card:hover { background: var(--surface); }
+    .article-tag {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-dim);
+      margin-bottom: 16px;
+    }
+    .article-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px; line-height: 1.25; color: var(--ink);
+      margin-bottom: 14px;
+    }
+    .article-excerpt {
+      font-size: 14px; font-weight: 300; color: var(--muted);
+      line-height: 1.7; margin-bottom: 24px;
+    }
+    .article-footer {
+      display: flex; justify-content: space-between;
+      align-items: center; padding-top: 20px;
+      border-top: 1px solid rgba(0,0,0,0.07);
+    }
+    .article-date { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+    .article-arrow {
+      font-size: 18px; color: var(--gold);
+      transition: transform 0.2s;
+    }
+    .article-card:hover .article-arrow { transform: translateX(4px); }
+
+    /* ── SA FOCUS STRIP ── */
+    .sa-section {
+      padding: 100px 5vw;
+      background: var(--ink);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .sa-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .sa-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .sa-eyebrow::before {
+      content: '🇿🇦'; font-size: 14px;
+    }
+    .sa-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(38px, 4.5vw, 68px);
+      line-height: 0.95; color: var(--white);
+      margin-bottom: 28px;
+    }
+    .sa-headline strong { color: var(--gold); display: block; }
+    .sa-text {
+      font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.6);
+      line-height: 1.8; margin-bottom: 36px;
+    }
+    .sa-cards { display: flex; flex-direction: column; gap: 1px; }
+    .sa-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.12);
+      padding: 28px 32px;
+      transition: background 0.15s, border-color 0.15s;
+      cursor: pointer;
+    }
+    .sa-card:hover {
+      background: rgba(201,168,76,0.07);
+      border-color: rgba(201,168,76,0.3);
+    }
+    .sa-card-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-dim);
+      margin-bottom: 10px;
+    }
+    .sa-card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px; color: var(--white); line-height: 1.3;
+    }
+
+    /* ── NEWSLETTER ── */
+    .newsletter-section {
+      padding: 100px 5vw;
+      text-align: center;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .newsletter-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 5vw, 72px);
+      line-height: 0.95; color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .newsletter-headline span { color: var(--gold); }
+    .newsletter-sub {
+      font-size: 16px; font-weight: 300; color: var(--muted);
+      margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto;
+    }
+    .newsletter-form {
+      display: flex; gap: 0; max-width: 480px;
+      margin: 0 auto; border: 1px solid rgba(0,0,0,0.15);
+    }
+    .newsletter-form input {
+      flex: 1; padding: 16px 20px; font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      border: none; outline: none; background: var(--white);
+      color: var(--ink);
+    }
+    .newsletter-form input::placeholder { color: rgba(0,0,0,0.35); }
+    .newsletter-form button {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; background: var(--ink); color: var(--gold);
+      border: none; padding: 16px 28px; cursor: pointer; transition: background 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .newsletter-form button:hover { background: var(--ink-soft); }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      padding: 80px 5vw;
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .about-avatar {
+      width: 200px; height: 200px;
+      background: var(--ink);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .about-avatar-inner {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px; color: var(--gold); letter-spacing: 0.02em;
+    }
+    .about-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px; color: var(--ink);
+      margin-bottom: 16px; letter-spacing: 0.02em;
+    }
+    .about-title span { color: var(--gold-dim); }
+    .about-bio {
+      font-size: 15px; font-weight: 300; color: var(--muted);
+      line-height: 1.8; max-width: 600px; margin-bottom: 24px;
+    }
+    .about-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .about-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--ink);
+      background: rgba(0,0,0,0.07); padding: 6px 14px; border-radius: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 60px 5vw 40px;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: start;
+      margin-bottom: 48px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px; color: var(--gold);
+      letter-spacing: 0.06em;
+    }
+    .footer-tagline {
+      font-size: 12px; color: rgba(255,255,255,0.3);
+      letter-spacing: 0.08em; margin-top: 4px;
+    }
+    .footer-links { display: flex; gap: 48px; }
+    .footer-col h4 {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-dim);
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block; font-size: 13px; color: rgba(255,255,255,0.45);
+      text-decoration: none; margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: rgba(255,255,255,0.25);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .featured-sidebar { display: none; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .sa-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-strip { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; gap: 40px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">TokenWyze</a>
+    <div class="nav-links">
+      <a href="#articles">Analysis</a>
+      <a href="#south-africa">SA Focus</a>
+      <a href="#about">About</a>
+      <a href="#newsletter">Newsletter</a>
+    </div>
+    <a class="nav-cta" href="#newsletter">Subscribe</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">South Africa's Leading Voice on Tokenisation</p>
+      <h1 class="hero-headline">
+        The Capital
+        <em>Markets</em>
+        Are Being
+        Rewritten.
+      </h1>
+      <p class="hero-sub">
+        Deep analysis on how tokenisation is dismantling barriers, democratising ownership,
+        and fundamentally reshaping financial markets — with a sharp focus on South Africa.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#featured">Read Latest Analysis</a>
+        <a class="btn-ghost" href="#newsletter">Join the Newsletter</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-ticker">
+        <div class="ticker-item">
+          <span class="ticker-name">JSE Tokenised Equity</span>
+          <span class="ticker-val">R 14,820</span>
+          <span class="ticker-change up">+2.4%</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-name">SA Property Token</span>
+          <span class="ticker-val">R 9,340</span>
+          <span class="ticker-change up">+1.1%</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-name">Gold-Backed ZAR Token</span>
+          <span class="ticker-val">R 32,100</span>
+          <span class="ticker-change down">−0.3%</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-name">Govt Bond Token</span>
+          <span class="ticker-val">R 1,004</span>
+          <span class="ticker-change up">+0.8%</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-name">Infra Project Token</span>
+          <span class="ticker-val">R 5,670</span>
+          <span class="ticker-change up">+3.6%</span>
+        </div>
+      </div>
+
+      <div class="hero-stat-bar">
+        <div class="stat-item">
+          <div class="stat-num">$16T</div>
+          <div class="stat-label">Global opportunity by 2030</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">87+</div>
+          <div class="stat-label">Active pilots worldwide</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">FSCA</div>
+          <div class="stat-label">SA regulatory progress</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER TAPE -->
+  <div class="tape">
+    <div class="tape-inner">
+      <span>Tokenisation</span><span>Capital Markets</span><span>DeFi</span>
+      <span>RWA</span><span>JSE</span><span>SARB</span><span>Smart Contracts</span>
+      <span>Project Khokha</span><span>FSCA</span><span>Blockchain</span>
+      <span>Digital Securities</span><span>Fractionalization</span><span>South Africa</span>
+      <span>Tokenisation</span><span>Capital Markets</span><span>DeFi</span>
+      <span>RWA</span><span>JSE</span><span>SARB</span><span>Smart Contracts</span>
+      <span>Project Khokha</span><span>FSCA</span><span>Blockchain</span>
+      <span>Digital Securities</span><span>Fractionalization</span><span>South Africa</span>
+    </div>
+  </div>
+
+  <!-- FEATURED POST -->
+  <section class="featured-section" id="featured">
+    <p class="section-label">Featured Analysis</p>
+    <div class="featured-grid">
+      <div class="featured-main">
+        <span class="post-tag">South Africa</span>
+        <div class="post-meta">
+          <span>March 2025</span>
+          <span class="dot"></span>
+          <span>8 min read</span>
+        </div>
+        <h2 class="featured-title">
+          Project Khokha 3: Why the SARB's
+          <em>Tokenised Wholesale CBDC</em>
+          Experiment Changes Everything
+        </h2>
+        <p class="featured-excerpt">
+          The South African Reserve Bank's Project Khokha isn't just a technical pilot —
+          it's a signal that the country's financial infrastructure is quietly being rebuilt
+          on programmable rails. We unpack what it means for settlement, liquidity, and
+          the future of interbank markets.
+        </p>
+        <a class="read-link" href="post.html">Read Analysis →</a>
+      </div>
+
+      <div class="featured-sidebar">
+        <div class="sidebar-article" onclick="location.href='post.html'">
+          <div class="sidebar-num">02</div>
+          <div class="sidebar-title">Fractional Property Ownership: Democratising Real Estate Through Tokenisation</div>
+          <div class="sidebar-date">February 2025 · 6 min</div>
+        </div>
+        <div class="sidebar-article" onclick="location.href='post.html'">
+          <div class="sidebar-num">03</div>
+          <div class="sidebar-title">How the JSE Could Leverage Tokenised Securities to Capture African Capital Flows</div>
+          <div class="sidebar-date">January 2025 · 10 min</div>
+        </div>
+        <div class="sidebar-article" onclick="location.href='post.html'">
+          <div class="sidebar-num">04</div>
+          <div class="sidebar-title">T+0 Settlement: The Settlement Cycle Revolution Is Already Here</div>
+          <div class="sidebar-date">December 2024 · 5 min</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLE GRID -->
+  <section class="articles-section" id="articles">
+    <p class="section-label">Latest Analysis</p>
+    <div class="articles-grid">
+
+      <div class="article-card">
+        <div class="article-tag">Capital Markets</div>
+        <h3 class="article-title">Real-World Assets: The $10 Trillion Opportunity Nobody Is Talking About</h3>
+        <p class="article-excerpt">Tokenising bonds, commodities, and private equity isn't a future concept — BlackRock, Franklin Templeton, and JPMorgan are already doing it at scale.</p>
+        <div class="article-footer">
+          <span class="article-date">Mar 2025</span>
+          <span class="article-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-tag">Regulation</div>
+        <h3 class="article-title">FSCA's Digital Asset Framework: What It Means for Tokenised Securities in SA</h3>
+        <p class="article-excerpt">South Africa's financial regulator is moving carefully but decisively. We map the current framework and what gaps still need to be closed.</p>
+        <div class="article-footer">
+          <span class="article-date">Mar 2025</span>
+          <span class="article-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-tag">Infrastructure</div>
+        <h3 class="article-title">Smart Contracts in Bond Markets: Automating the Unglamorous Work of Finance</h3>
+        <p class="article-excerpt">Coupon payments, compliance checks, voting rights — smart contracts are quietly eliminating the friction in fixed income markets.</p>
+        <div class="article-footer">
+          <span class="article-date">Feb 2025</span>
+          <span class="article-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-tag">Africa</div>
+        <h3 class="article-title">Pan-African Capital: How Tokenisation Could Finally Unlock Cross-Border Investment</h3>
+        <p class="article-excerpt">Currency risk and regulatory fragmentation have long blocked African capital markets from integrating. Tokenised assets offer a path around both.</p>
+        <div class="article-footer">
+          <span class="article-date">Feb 2025</span>
+          <span class="article-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-tag">Deep Dive</div>
+        <h3 class="article-title">The Liquidity Premium: Why Tokenised Private Markets Could Outperform Public Ones</h3>
+        <p class="article-excerpt">Illiquidity discounts have historically penalised private market investors. Secondary markets for tokenised assets are starting to close that gap.</p>
+        <div class="article-footer">
+          <span class="article-date">Jan 2025</span>
+          <span class="article-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <div class="article-tag">Policy</div>
+        <h3 class="article-title">Comparing Global Regulatory Sandboxes: What South Africa Can Learn from Singapore and the EU</h3>
+        <p class="article-excerpt">MAS and MiCA are setting the global benchmark for digital asset regulation. Here's an honest assessment of where South Africa stands.</p>
+        <div class="article-footer">
+          <span class="article-date">Jan 2025</span>
+          <span class="article-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SA FOCUS -->
+  <section class="sa-section" id="south-africa">
+    <div class="sa-inner">
+      <div>
+        <div class="sa-eyebrow">South Africa Focus</div>
+        <h2 class="sa-headline">
+          Where Tokenisation
+          <strong>Meets the Rand</strong>
+        </h2>
+        <p class="sa-text">
+          South Africa sits at a rare inflection point. With an advanced but underutilised
+          financial infrastructure, a reform-minded regulator, and a capital-starved economy
+          hungry for new investment models, the conditions for tokenisation-led transformation
+          are uniquely compelling.
+        </p>
+        <a class="btn-primary" href="#newsletter">Get the SA Briefing →</a>
+      </div>
+
+      <div class="sa-cards">
+        <div class="sa-card">
+          <div class="sa-card-label">SARB · CBDC</div>
+          <div class="sa-card-title">Project Khokha: From Pilot to Infrastructure</div>
+        </div>
+        <div class="sa-card">
+          <div class="sa-card-label">JSE · Market Structure</div>
+          <div class="sa-card-title">Tokenised Securities on the Johannesburg Stock Exchange</div>
+        </div>
+        <div class="sa-card">
+          <div class="sa-card-label">FSCA · Regulation</div>
+          <div class="sa-card-title">The Regulatory Roadmap for Digital Asset Markets</div>
+        </div>
+        <div class="sa-card">
+          <div class="sa-card-label">Property · Retail</div>
+          <div class="sa-card-title">Fractional Property Investment: Democratising SA Real Estate</div>
+        </div>
+        <div class="sa-card">
+          <div class="sa-card-label">Infrastructure · Finance</div>
+          <div class="sa-card-title">Tokenising Infrastructure: Funding SA's Energy Transition</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section" id="newsletter">
+    <p class="section-label" style="justify-content:center">Stay Sharp</p>
+    <h2 class="newsletter-headline">
+      The Weekly<br /><span>Tokenisation</span> Briefing
+    </h2>
+    <p class="newsletter-sub">
+      Market movements, regulatory developments, and original analysis — delivered
+      every week to the inboxes of South Africa's most forward-thinking finance professionals.
+    </p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="your@email.com" />
+      <button type="button">Subscribe</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-strip" id="about">
+    <div class="about-avatar">
+      <div class="about-avatar-inner">TW/div>
+    </div>
+    <div>
+      <h2 class="about-title">The <span>Voice</span> Behind TokenWyze</h2>
+      <p class="about-bio">
+        TokenWyze is an independent publication focused on how tokenisation is reshaping
+        capital markets — with an unmatched focus on South Africa. Written by a practitioner
+        at the intersection of finance, technology, and policy, every piece is grounded in
+        how these changes actually affect markets, institutions, and everyday investors.
+      </p>
+      <div class="about-tags">
+        <span class="about-tag">Capital Markets</span>
+        <span class="about-tag">Digital Assets</span>
+        <span class="about-tag">South Africa</span>
+        <span class="about-tag">Blockchain</span>
+        <span class="about-tag">Regulation</span>
+        <span class="about-tag">DeFi</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">TokenWyze</div>
+        <div class="footer-tagline">South Africa's voice on tokenisation & capital markets</div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Topics</h4>
+          <a href="#">Capital Markets</a>
+          <a href="#">South Africa</a>
+          <a href="#">Regulation</a>
+          <a href="#">Real-World Assets</a>
+        </div>
+        <div class="footer-col">
+          <h4>Publication</h4>
+          <a href="#">About</a>
+          <a href="#">Newsletter</a>
+          <a href="#">All Articles</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 TokenWyze. All rights reserved.</span>
+      <span>Built for South Africa's financial future.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
