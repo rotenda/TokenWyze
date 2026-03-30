@@ -518,31 +518,9 @@
     </div>
 
     <div class="hero-visual">
-      <div class="hero-ticker">
+      <div class="hero-ticker" id="live-ticker">
         <div class="ticker-item">
-          <span class="ticker-name">JSE Tokenised Equity</span>
-          <span class="ticker-val">R 14,820</span>
-          <span class="ticker-change up">+2.4%</span>
-        </div>
-        <div class="ticker-item">
-          <span class="ticker-name">SA Property Token</span>
-          <span class="ticker-val">R 9,340</span>
-          <span class="ticker-change up">+1.1%</span>
-        </div>
-        <div class="ticker-item">
-          <span class="ticker-name">Gold-Backed ZAR Token</span>
-          <span class="ticker-val">R 32,100</span>
-          <span class="ticker-change down">−0.3%</span>
-        </div>
-        <div class="ticker-item">
-          <span class="ticker-name">Govt Bond Token</span>
-          <span class="ticker-val">R 1,004</span>
-          <span class="ticker-change up">+0.8%</span>
-        </div>
-        <div class="ticker-item">
-          <span class="ticker-name">Infra Project Token</span>
-          <span class="ticker-val">R 5,670</span>
-          <span class="ticker-change up">+3.6%</span>
+          <span class="ticker-name" style="color:rgba(255,255,255,0.4);font-size:13px;font-family:'DM Sans',sans-serif;letter-spacing:0.05em;">Loading live prices...</span>
         </div>
       </div>
 
@@ -562,6 +540,51 @@
       </div>
     </div>
   </section>
+
+  <script>
+    const COINS = [
+      { id: 'ripple',         label: 'XRP',       desc: 'Cross-border payments' },
+      { id: 'ondo-finance',   label: 'ONDO',      desc: 'Tokenised RWA protocol' },
+      { id: 'chainlink',      label: 'LINK',      desc: 'Smart contract oracle' },
+      { id: 'ethereum',       label: 'ETH',       desc: 'Smart contract platform' },
+      { id: 'stellar',        label: 'XLM',       desc: 'Asset tokenisation network' },
+      { id: 'avalanche-2',    label: 'AVAX',      desc: 'Institutional blockchain' },
+      { id: 'polkadot',       label: 'DOT',       desc: 'Cross-chain interoperability' },
+    ];
+
+    async function fetchPrices() {
+      const ids = COINS.map(c => c.id).join(',');
+      const url = 'https://api.coingecko.com/api/v3/simple/price?ids=' + ids + '&vs_currencies=usd&include_24hr_change=true';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const ticker = document.getElementById('live-ticker');
+        ticker.innerHTML = COINS.map(coin => {
+          const d = data[coin.id];
+          if (!d) return '';
+          const price = d.usd >= 1
+            ? '$' + d.usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+            : '$' + d.usd.toFixed(4);
+          const change = d.usd_24h_change;
+          const changeStr = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+          const cls = change >= 0 ? 'up' : 'down';
+          return '<div class="ticker-item">'
+            + '<div><span class="ticker-name">' + coin.label + '</span>'
+            + '<div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px;font-family:\'DM Sans\',sans-serif;">' + coin.desc + '</div></div>'
+            + '<span class="ticker-val">' + price + '</span>'
+            + '<span class="ticker-change ' + cls + '">' + changeStr + '</span>'
+            + '</div>';
+        }).join('');
+      } catch (e) {
+        document.getElementById('live-ticker').innerHTML = '<div class="ticker-item">'
+          + '<span class="ticker-name" style="color:rgba(255,255,255,0.4);font-size:13px;font-family:\'DM Sans\',sans-serif;">Price data temporarily unavailable</span>'
+          + '</div>';
+      }
+    }
+
+    fetchPrices();
+    setInterval(fetchPrices, 60000);
+  </script>
 
   <!-- TICKER TAPE -->
   <div class="tape">
