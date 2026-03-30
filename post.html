@@ -159,7 +159,7 @@
       on programmable rails.
     </p>
     <div class="post-meta-bar">
-      <span>March 2025</span>
+      <span>February 2026</span>
       <span class="dot"></span>
       <span>8 min read</span>
       <span class="dot"></span>
@@ -330,7 +330,8 @@
 
   <footer>
     <a href="index.html" class="footer-logo"><img src="logo.png" alt="TokenWyze" style="height:40px;width:auto;display:block;" /></a>
-    <p class="footer-copy">© 2025 TokenWyze</p>
+    <p class="footer-copy">© <span id="footer-year"></span> TokenWyze</p>
+    <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
   </footer>
 
 </body>
