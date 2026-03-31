@@ -3,333 +3,391 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Khokha 3 — TokenWyze</title>
+  <title>Project Khokha 2 — TokenWyze</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --gold: #C9A84C;
-      --gold-light: #E8C96A;
-      --gold-dim: #8B7035;
-      --ink: #0D0D0D;
-      --ink-soft: #2C2C2C;
-      --muted: #6B6B6B;
-      --border: rgba(201,168,76,0.18);
-      --surface: #F7F4EE;
-      --white: #FDFCF9;
+      --gold: #C9A84C; --gold-light: #E8C96A; --gold-dim: #8B7035;
+      --ink: #0D0D0D; --ink-soft: #2C2C2C; --muted: #6B6B6B;
+      --border: rgba(201,168,76,0.18); --surface: #F7F4EE; --white: #FDFCF9;
     }
     body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); }
-
     nav {
       position: sticky; top: 0; z-index: 100;
       background: var(--ink); border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 5vw; height: 68px;
     }
-    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); letter-spacing: 0.08em; text-decoration: none; }
     .nav-back { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
     .nav-back:hover { color: var(--gold); }
-
-    .post-hero {
-      background: var(--ink);
-      padding: 80px 5vw 80px;
-      border-bottom: 1px solid var(--border);
-    }
-    .post-breadcrumb {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--gold-dim);
-      margin-bottom: 24px;
-    }
-    .post-hero-tag {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--gold);
-      background: rgba(201,168,76,0.12);
-      padding: 4px 12px; border-radius: 2px;
-      display: inline-block; margin-bottom: 24px;
-    }
-    .post-hero-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(32px, 5vw, 64px);
-      line-height: 1.05; color: var(--white);
-      max-width: 800px; margin-bottom: 28px;
-    }
+    .post-hero { background: var(--ink); padding: 80px 5vw; border-bottom: 1px solid var(--border); }
+    .post-breadcrumb { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 24px; }
+    .post-hero-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.12); padding: 4px 12px; border-radius: 2px; display: inline-block; margin-bottom: 24px; }
+    .post-hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(32px, 5vw, 64px); line-height: 1.05; color: var(--white); max-width: 800px; margin-bottom: 28px; }
     .post-hero-title em { font-style: italic; color: var(--gold); }
-    .post-hero-sub {
-      font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55);
-      max-width: 680px; line-height: 1.75; margin-bottom: 40px;
-    }
-    .post-meta-bar {
-      display: flex; align-items: center; gap: 24px;
-      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08);
-      font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em;
-    }
-    .post-meta-bar span { display: flex; align-items: center; gap: 6px; }
+    .post-hero-sub { font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55); max-width: 680px; line-height: 1.75; margin-bottom: 40px; }
+    .post-meta-bar { display: flex; align-items: center; gap: 24px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
     .post-meta-bar .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); }
-
-    .post-body-wrap {
-      max-width: 740px;
-      margin: 0 auto;
-      padding: 80px 5vw;
-    }
-    .post-lead {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px; color: var(--ink-soft);
-      line-height: 1.6; margin-bottom: 40px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
-    .post-body p {
-      font-size: 17px; font-weight: 300; color: #333;
-      line-height: 1.85; margin-bottom: 28px;
-    }
-    .post-body h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 34px; letter-spacing: 0.04em;
-      color: var(--ink); margin: 56px 0 20px;
-    }
-    .post-body h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px; color: var(--ink);
-      margin: 40px 0 16px;
-    }
-    .post-body blockquote {
-      border-left: 3px solid var(--gold);
-      padding: 4px 0 4px 28px;
-      margin: 40px 0;
-    }
-    .post-body blockquote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px; color: var(--ink-soft);
-      line-height: 1.55; font-style: italic; margin: 0;
-    }
-    .callout {
-      background: var(--surface);
-      border: 1px solid rgba(201,168,76,0.2);
-      padding: 28px 32px; margin: 40px 0;
-    }
-    .callout-label {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.25em;
-      text-transform: uppercase; color: var(--gold-dim);
-      margin-bottom: 12px;
-    }
-    .callout p {
-      font-size: 15px !important; margin: 0 !important; color: var(--ink-soft) !important;
-    }
-
-    .post-footer-tags {
-      display: flex; gap: 8px; flex-wrap: wrap;
-      padding-top: 48px; border-top: 1px solid rgba(0,0,0,0.08);
-      margin-top: 48px;
-    }
-    .pfooter-tag {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--muted);
-      background: rgba(0,0,0,0.05); padding: 6px 14px; border-radius: 2px;
-    }
-
-    footer {
-      background: var(--ink); padding: 40px 5vw;
-      border-top: 1px solid rgba(201,168,76,0.15);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); letter-spacing: 0.06em; }
+    .post-body-wrap { max-width: 740px; margin: 0 auto; padding: 80px 5vw; }
+    .post-lead { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .post-body p { font-size: 17px; font-weight: 300; color: #333; line-height: 1.85; margin-bottom: 28px; }
+    .post-body h2 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 0.04em; color: var(--ink); margin: 56px 0 20px; }
+    .post-body h3 { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); margin: 40px 0 16px; }
+    .post-body blockquote { border-left: 3px solid var(--gold); padding: 4px 0 4px 28px; margin: 40px 0; }
+    .post-body blockquote p { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink-soft); line-height: 1.55; font-style: italic; margin: 0; }
+    .callout { background: var(--surface); border: 1px solid rgba(201,168,76,0.2); padding: 28px 32px; margin: 40px 0; }
+    .callout-label { font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; }
+    .callout p { font-size: 15px !important; margin: 0 0 10px 0 !important; color: var(--ink-soft) !important; }
+    .callout ul { margin: 8px 0 0 20px; }
+    .callout ul li { font-size: 15px; color: var(--ink-soft); margin-bottom: 10px; line-height: 1.6; }
+    .post-footer-tags { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 48px; border-top: 1px solid rgba(0,0,0,0.08); margin-top: 48px; }
+    .pfooter-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: rgba(0,0,0,0.05); padding: 6px 14px; border-radius: 2px; }
+    footer { background: var(--ink); padding: 40px 5vw; border-top: 1px solid rgba(201,168,76,0.15); display: flex; justify-content: space-between; align-items: center; }
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
   </style>
 </head>
 <body>
 
   <nav>
-    <a class="nav-logo" href="index.html"><img src="logo.png" alt="TokenWyze" style="height:52px;width:auto;display:block;" /></a>
+    <a href="index.html"><img src="logo.png" alt="TokenWyze" style="height:52px;width:auto;display:block;" /></a>
     <a class="nav-back" href="index.html">← Back to All Articles</a>
   </nav>
 
   <header class="post-hero">
-    <p class="post-breadcrumb">Analysis · South Africa · CBDC</p>
-    <span class="post-hero-tag">Featured Analysis</span>
+    <p class="post-breadcrumb">Analysis · South Africa · CBDC · DLT</p>
+    <span class="post-hero-tag">Deep Dive</span>
     <h1 class="post-hero-title">
-      Project Khokha 3: Why the SARB's
-      <em>Tokenised Wholesale CBDC</em>
-      Experiment Changes Everything
+      Project Khokha 2: How the SARB
+      <em>Tokenised a Security</em>
+      and What It Revealed About the Future of Financial Markets
     </h1>
     <p class="post-hero-sub">
-      The South African Reserve Bank's Project Khokha isn't just a technical pilot —
-      it's a signal that the country's financial infrastructure is quietly being rebuilt
-      on programmable rails.
+      A thorough examination of the South African Reserve Bank's landmark distributed ledger
+      experiment — what was built, what was proved, and what legal, operational and policy
+      questions remain unanswered.
     </p>
     <div class="post-meta-bar">
       <span>February 2026</span>
       <span class="dot"></span>
-      <span>8 min read</span>
+      <span>12 min read</span>
       <span class="dot"></span>
-      <span>Capital Markets · SARB · CBDC</span>
+      <span>SARB · wCBDC · DLT · Capital Markets</span>
     </div>
   </header>
 
   <main class="post-body-wrap">
 
     <p class="post-lead">
-      South Africa has been running one of the world's most sophisticated central bank
-      digital currency experiments for years. Most people haven't noticed — but the
-      global financial establishment certainly has.
+      In April 2022, the South African Reserve Bank and the Intergovernmental Fintech Working
+      Group published the full report on Project Khokha 2 — one of the most technically
+      sophisticated central bank tokenisation experiments conducted anywhere in the world.
+      This is a close reading of what they actually built, what worked, what did not, and why it matters.
     </p>
 
     <div class="post-body">
+
+      <h2>Where It Began: Project Khokha 1</h2>
+
       <p>
-        When the South African Reserve Bank first launched Project Khokha in 2018, the goal
-        was modest: prove that a distributed ledger could handle interbank settlements between
-        commercial banks. The experiment worked. But more importantly, it revealed something
-        about South Africa's financial system that few had articulated clearly: the country
-        had the infrastructure, the regulatory appetite, and the institutional coordination
-        to do something genuinely ambitious.
+        To understand Project Khokha 2 (PK2), you need to start with its predecessor. Project Khokha 1,
+        launched in 2018, explored whether distributed ledger technology (DLT) could replicate core
+        functions of South Africa's real-time gross settlement system — the South African Multiple Option
+        Settlement (SAMOS) system. The answer was yes. PK1 proved that elements of SAMOS could be
+        duplicated at scale and speed on DLT while maintaining privacy, confidentiality, and providing
+        the SARB sufficient oversight and operational management.
       </p>
 
       <p>
-        Seven years later, Project Khokha 3 is testing the next frontier — a wholesale
-        central bank digital currency that can not only settle interbank transactions, but
-        execute them through programmable smart contracts, potentially collapsing a settlement
-        cycle that still takes two days in most markets into something that happens in seconds.
+        That success created the foundation for a harder question: what happens when you move beyond
+        interbank payments and attempt to tokenise an actual security — end to end, from issuance
+        through to maturity settlement?
       </p>
 
-      <h2>What Is a Wholesale CBDC, and Why Does It Matter?</h2>
+      <h2>What PK2 Set Out to Do</h2>
 
       <p>
-        Most public discussion of CBDCs focuses on retail versions — digital money that
-        ordinary citizens might hold in digital wallets, replacing or supplementing physical
-        cash. Wholesale CBDCs are different. They operate in the plumbing of the financial
-        system, moving between banks, clearing houses, and central banks in the settlement
-        of large financial transactions.
+        Formally launched in February 2021 as an IFWG Innovation Accelerator project, PK2 focused
+        on the tokenisation of a SARB-issued debenture — a short-term debt security used to drain
+        excess liquidity from the domestic money markets. Debentures were deliberately chosen because
+        they are directly under the SARB's control, making them practical to tokenise in a proof-of-concept,
+        with the intention that insights could later be applied to other securities in different environments.
       </p>
 
       <blockquote>
         <p>
-          "The settlement of financial transactions is the most important function nobody
-          thinks about. It is the invisible infrastructure on which every market depends."
+          "The aim of PK2 is to highlight the policy and regulatory implications of tokenisation
+          in financial markets based on DLT-driven innovation."
         </p>
       </blockquote>
 
       <p>
-        Today's settlement systems — Strate in South Africa, DTCC in the United States,
-        Euroclear in Europe — work well but carry significant hidden costs: counterparty risk
-        during the settlement window, capital tied up as collateral, manual reconciliation
-        across multiple ledgers, and the systemic risk that accumulates whenever large
-        positions remain unsettled.
+        The project team was given an explicit mandate: do not simply replicate existing processes
+        on new technology. Design for DLT. Re-imagine the market from first principles. This
+        distinction matters — it is what separates PK2 from tokenisation experiments that digitise
+        a workflow without questioning the underlying architecture.
       </p>
 
       <p>
-        A tokenised wholesale CBDC changes the mechanics fundamentally. Instead of two banks
-        sending instructions to a central clearinghouse which then nets and settles overnight,
-        a programmable token representing central bank money can move simultaneously with
-        the asset being purchased — what technologists call atomic settlement, or
-        delivery-versus-payment in real time.
+        PK2 was a collaborative initiative involving the SARB's Fintech Unit, Accenture and Block
+        Markets Africa as technical service providers, and Deloitte as support partner. Active
+        participants included Absa, FirstRand, Nedbank, Standard Bank and JSE Limited. Observers
+        included the Financial Sector Conduct Authority, National Treasury, Strate, the Financial
+        Intelligence Centre, and multiple divisions within the SARB itself.
       </p>
 
-      <h2>What Project Khokha 3 Is Actually Testing</h2>
+      <h2>The Current Debentures Market: What Was Being Replaced</h2>
+
+      <p>
+        To appreciate what PK2 built, it helps to understand what currently exists. In South Africa,
+        SARB debentures are auctioned by the Financial Markets Department (FMD) every Wednesday
+        when there is a need to drain liquidity. Bids from eligible commercial banks and asset managers
+        are placed, FMD allocates debentures to the best bidders, and Strate — as the central
+        securities depository (CSD) — facilitates settlement. Money settlement moves through SAMOS,
+        and the JSE assigns an ISIN to each debenture as the National Numbering Agency.
+      </p>
+
+      <p>
+        This infrastructure works, but it involves multiple separate institutions each maintaining
+        their own ledgers, requiring reconciliation across systems, and operating with a T+0
+        settlement cycle for debentures. The question PK2 asked was: what if all of this could
+        happen on a single shared DLT platform?
+      </p>
+
+      <h2>Two Platforms, One Debenture Token Market</h2>
+
+      <p>
+        The proof-of-concept was built on two distinct DLT platforms designed to interoperate — and
+        that interoperability challenge turned out to be one of the most revealing aspects of the project.
+      </p>
+
+      <h3>The wCBDC Zone</h3>
+
+      <p>
+        The first platform was the wholesale central bank digital currency (wCBDC) Zone, built on
+        R3 Corda. This platform was owned and operated by the SARB and served as the digital
+        equivalent of the central bank's settlement system. The wCBDC token minted here was designed
+        to carry a direct and fungible claim on the SARB — equivalent in value and quality to money
+        held in a settlement account at the central bank. When a wCBDC token transferred between
+        participants, the associated claim on the central bank transferred with it.
+      </p>
+
+      <h3>The Khokha Hub</h3>
+
+      <p>
+        The second platform — the Khokha Hub — was built on a custom implementation of the Cosmos
+        blockchain called BitFair. This is where the debenture tokens were issued and traded. Its
+        modular architecture enabled it to serve simultaneously as a trading platform, a CSD, a
+        securities settlement system, and elements of a payment system — collapsing functions that
+        currently require separate institutions onto a single decentralised platform.
+      </p>
+
+      <p>
+        The Khokha Hub was envisioned as a consortium-governed token trading platform (TTP) operated
+        jointly by market participants through a Khokha Council. Any participant could propose new
+        business logic as modules — comparable to decentralised applications in DeFi — which the
+        Council would vote on whether to implement.
+      </p>
 
       <div class="callout">
-        <div class="callout-label">Key Insight</div>
-        <p>
-          Project Khokha 3 is not testing whether blockchain technology works. It is testing
-          whether South Africa's legal, regulatory, and institutional frameworks can be adapted
-          to treat tokenised central bank money as legally equivalent to reserves held at the
-          SARB — a question with profound implications for how every financial transaction in
-          this country settles.
-        </p>
+        <div class="callout-label">Three Prototypes Built in PK2</div>
+        <ul>
+          <li>A wCBDC — a liability of the SARB, issued on the wCBDC Zone as an alternate form of central bank money restricted to settlement participants</li>
+          <li>A wholesale digital settlement token (wToken) called the Khokha Token — a commercial bank-issued stablecoin backed by funds earmarked in SAMOS settlement accounts, and redeemable for wCBDC</li>
+          <li>A DLT-based SARB debenture token — issued as an NFT on the Khokha Hub, designed specifically for DLT rather than as a digital copy of the existing instrument</li>
+        </ul>
       </div>
 
+      <h2>How the Debenture Token Life Cycle Worked</h2>
+
       <p>
-        The technical architecture builds on the learnings from earlier Khokha phases.
-        A permissioned distributed ledger — not a public blockchain — connects participating
-        commercial banks and the SARB. On this ledger, wholesale CBDC tokens are issued by
-        the SARB and transferred between banks as settlement for financial transactions.
+        The debenture token life cycle in the PoC followed the real-world process but executed
+        key functions on-chain. FMD would announce an auction on Wednesday, receive bids from
+        eligible participants, and issue debenture tokens as NFTs directly onto the Khokha Hub.
+        Each NFT contained the full details of the instrument: debt type, issuer, issuing and maturity
+        dates, interest rate, and beneficiary. An ISIN was obtained from a simulated National Numbering
+        Agency for registration alongside this data.
       </p>
 
       <p>
-        What distinguishes Khokha 3 is the integration of smart contracts into this
-        settlement infrastructure. The pilot is testing whether complex financial instruments —
-        repo agreements, government bond purchases, interbank loans — can be encoded in
-        smart contracts that automatically execute settlement when pre-agreed conditions are
-        met. The humans agree the trade. The code executes it. The central bank money moves
-        automatically.
-      </p>
-
-      <h3>The Legal Question Nobody Wants to Answer First</h3>
-
-      <p>
-        The technical infrastructure is, in many ways, the easier problem. The harder problem
-        is legal and regulatory: what is a tokenised CBDC, legally speaking? Is it a claim on
-        the central bank in the same way a reserve balance is? Can it be held as collateral?
-        How does insolvency law treat it if a participant bank fails mid-transaction?
+        Settlement in the primary market used a delivery-versus-payment (DvP) atomic swap. Three
+        actions occurred simultaneously in a single transaction: the wCBDC moved from buyer to seller,
+        ownership of the debenture NFT transferred to the buyer, and the NFT's data was validated
+        against its ISIN record. If any one of the three steps failed, all three were rolled back —
+        ensuring true DvP without the risk of one leg settling without the other.
       </p>
 
       <p>
-        These questions are not unique to South Africa — they are being grappled with
-        simultaneously in Singapore, the European Union, the United Kingdom, and the United
-        States. But South Africa has an advantage: the SARB and the FSCA have demonstrated
-        a willingness to work through these questions in public, in real pilots with real
-        money, rather than waiting for perfect legal clarity that may never arrive.
+        At maturity, FMD made payment of the principal and interest owed in wCBDC, which a
+        smart contract distributed to the relevant beneficiaries — directly equivalent to the MaFISI
+        (Maturity Financial Instrument Settlement Instruction) process in the current market.
       </p>
 
-      <h2>What This Means for Capital Markets in South Africa</h2>
+      <h3>Fractionalised Debt at Maturity Tokens</h3>
 
       <p>
-        The implications ripple far beyond interbank settlement. If South Africa successfully
-        establishes a legal and technical framework for tokenised central bank money, it
-        creates the foundation for a much broader transformation of how capital markets
-        function in this country.
-      </p>
-
-      <p>
-        Government bonds could be issued as tokens and settled instantly against CBDC.
-        Equities listed on the JSE could be tokenised and settled on the same infrastructure.
-        Corporate bonds, repo agreements, derivatives — all of them could eventually plug
-        into a common settlement layer built on programmable money.
+        To create liquidity in the secondary market — where high minimum values of ZAR 1 million
+        per debenture and different maturity dates made direct trading difficult — the team created
+        Fractionalised Debt at Maturity (FDM) Tokens. These synthetic instruments combined the
+        principal value and interest of a debenture before maturity, making it fungible and tradeable
+        in smaller amounts using a decentralised exchange order book on the Khokha Hub.
       </p>
 
       <p>
-        The prize, for South Africa, goes beyond operational efficiency. A country with
-        modern digital financial infrastructure — genuinely modern, not the 1990s infrastructure
-        that most financial centres are still running — becomes a significantly more attractive
-        destination for capital. For an economy that has struggled with capital flight and
-        currency weakness, that matters enormously.
+        An unintended consequence emerged here: the FDM Tokens, representing a claim against the
+        central bank, could themselves be used as a form of money without converting them to wCBDC
+        or Khokha Tokens. A security had effectively become a piece of what DeFi calls "Money Lego"
+        — a building block for further financial innovation. The report notes this with interest but also
+        flags that it runs contrary to the purpose of debentures, which is to drain liquidity from the
+        market, not create new forms of it.
       </p>
 
-      <h2>The Road Ahead</h2>
-
-      <p>
-        Project Khokha 3 is still a pilot. The SARB has been careful not to overstate what
-        the experiments prove, and the path from successful pilot to production infrastructure
-        is long and technically demanding. Legal frameworks need to be updated. Participants
-        need to invest in new systems. The FSCA's digital asset framework needs to mature.
-      </p>
+      <h2>The Software Bridge: The Most Complex Element</h2>
 
       <p>
-        But the direction of travel is clear, and South Africa is further along it than most
-        observers realise. The question is no longer whether tokenised financial infrastructure
-        is coming — it is whether South Africa moves fast enough to be a leader in its
-        adoption, or waits until the global standard is set elsewhere and then scrambles to
-        catch up.
+        Enabling the wCBDC — issued on the wCBDC Zone — to be used on the Khokha Hub required
+        a software bridge operated centrally by the SARB. When a bank wanted to buy debenture tokens
+        with wCBDC, the wCBDC was moved to a cession wallet in the wCBDC Zone where it was
+        frozen. An equivalent value of wCBDC was created on the Khokha Hub and credited to the
+        bank's wallet. A strict 1:1 mapping was maintained at all times. When the bank imported
+        wCBDC back to the wCBDC Zone, the Khokha Hub tokens were destroyed and the frozen
+        wCBDC was released.
+      </p>
+
+      <blockquote>
+        <p>
+          "Care should therefore be taken in porting wCBDC to networks not controlled by the
+          issuing central bank."
+        </p>
+      </blockquote>
+
+      <p>
+        This porting mechanism worked technically — but it exposed a significant legal tension. Under
+        South African legislation, settlement in a designated settlement system is final and irrevocable.
+        When wCBDC was moved to the Khokha Hub, it created a split between when operational
+        settlement occurred and when legal settlement occurred. This is identified in the report as
+        one of the most important unresolved questions from the project, with the recommendation
+        that wCBDC should ideally be used on its own platform for the full benefit of both technical
+        and legal settlement finality.
+      </p>
+
+      <h2>What the Report Says About Market Structure</h2>
+
+      <p>
+        The most consequential finding of PK2 was structural rather than technical. The Khokha Hub,
+        in its final design, performed the functions of a trading platform, a CSD, a securities settlement
+        system, and elements of a payment system. Multiple separate institutions currently perform
+        these functions in South Africa. DLT collapsed them onto a single shared ledger.
       </p>
 
       <p>
-        The SARB, to its credit, seems to understand the stakes.
+        The report makes an important distinction between role players and roles. The roles —
+        issuing, trading, settling, custodying — did not disappear. But the number of entities required
+        to perform them could be significantly reduced. Reconciliation across multiple ledgers, a
+        major source of cost and operational risk in current markets, would be eliminated by a single
+        shared source of truth with different levels of access depending on participant roles.
       </p>
+
+      <p>
+        However, the report is careful to note that existing structures evolved over time to ensure
+        the safety, efficiency, and resilience of financial markets. Some existing frictions — such as
+        those inherent in post-trade funding — exist for business reasons. Before discarding any
+        structure, its function and purpose must be fully understood.
+      </p>
+
+      <h2>The Legal and Regulatory Gaps PK2 Exposed</h2>
+
+      <p>
+        The report devotes significant attention to legal and regulatory questions that PK2 raised but
+        could not answer. These are the actual barriers that would need to be resolved before any
+        DLT-based market infrastructure could go into production in South Africa.
+      </p>
+
+      <h3>The wCBDC legal framework</h3>
+      <p>
+        Issuing a token-based wCBDC would require the SARB to consider its impact on its mandate
+        and legal framework. Is it legally permissible to use a distributed ledger as a designated
+        settlement system? What is the legal status of a wCBDC wallet as an account with the
+        central bank? What is the viability of designating the wCBDC's DLT as a settlement system?
+        These questions remain open.
+      </p>
+
+      <h3>Security tokens and the Financial Markets Act</h3>
+      <p>
+        Security tokens are not defined in the Financial Markets Act 19 of 2012. The regulatory
+        treatment of a tokenised SARB debenture — or any tokenised security — is therefore
+        uncertain. The report calls for the FMA to be updated to enable an agile and adaptive
+        framework for emerging asset classes, ensuring legislation is technology neutral and principle
+        based so that regulators can respond to changing market conditions without requiring
+        constant legislative amendment.
+      </p>
+
+      <h3>The wToken and stablecoin regulation</h3>
+      <p>
+        The Khokha Token, as a stablecoin used for wholesale settlement, would need to align
+        with broader regulatory approaches to stablecoins. The report flags several Principles for
+        Financial Market Infrastructures (PFMIs) that present specific compliance challenges — including
+        PFMI 1 (enforceable legal basis), PFMI 2 (clear and transparent governance), PFMI 8
+        (settlement finality), and PFMI 9 (settlement in central bank money where practical and available).
+        At present, the FMA does not clearly define how a wToken would be treated in law.
+      </p>
+
+      <div class="callout">
+        <div class="callout-label">Four Directions for Further Exploration</div>
+        <p>The PK2 report identified four broad paths forward, drawn directly from its conclusions:</p>
+        <ul>
+          <li>A DLT innovation acceleration platform with industry, allowing financial institutions to explore DLT applications under regulatory oversight for an extended period</li>
+          <li>Collaboration with other jurisdictions — building on the SARB's participation in Project Dunbar to explore multi-wCBDC arrangements, potentially within the SADC region</li>
+          <li>A new phase of Project Khokha to build on PK2, potentially performing live transactions in a sandbox environment using a different use case</li>
+          <li>Desktop research to explore the policy and regulatory implications of DLT-driven financial market innovation in more depth</li>
+        </ul>
+      </div>
+
+      <h2>Why This Matters</h2>
+
+      <p>
+        PK2 is not a theoretical exercise. It involved the SARB's own Financial Markets Department
+        issuing real debenture tokens, major commercial banks as active participants, and the JSE,
+        Strate, and multiple regulatory bodies as observers. The findings carry institutional weight.
+      </p>
+
+      <p>
+        The report's central insight is that the true benefit and challenge of DLT may not stem from
+        the technology itself, but from the business process innovation it enables. Moving to DLT-based
+        financial markets does not simply speed up existing processes — it forces a rethinking of
+        which processes are necessary, who should perform them, and what the correct legal and
+        governance architecture looks like in a tokenised world.
+      </p>
+
+      <p>
+        South Africa, the report notes, faces an opportune moment. Legislative reforms in both the
+        payments and financial markets space are already underway. The window to embed technology-neutral,
+        principle-based frameworks capable of accommodating tokenised markets is open. PK2
+        has continued to provide a collaborative space for experimentation with DLT within the industry,
+        contributing to a growing body of knowledge. What follows from here will depend on the
+        willingness of policymakers, regulators, and industry to move from experimentation to action.
+      </p>
+
     </div>
 
     <div class="post-footer-tags">
-      <span class="pfooter-tag">SARB</span>
-      <span class="pfooter-tag">CBDC</span>
       <span class="pfooter-tag">Project Khokha</span>
-      <span class="pfooter-tag">Settlement</span>
-      <span class="pfooter-tag">South Africa</span>
+      <span class="pfooter-tag">SARB</span>
+      <span class="pfooter-tag">wCBDC</span>
+      <span class="pfooter-tag">DLT</span>
+      <span class="pfooter-tag">Tokenisation</span>
       <span class="pfooter-tag">Capital Markets</span>
+      <span class="pfooter-tag">South Africa</span>
+      <span class="pfooter-tag">Settlement</span>
+      <span class="pfooter-tag">IFWG</span>
     </div>
 
   </main>
 
   <footer>
-    <a href="index.html" class="footer-logo"><img src="logo.png" alt="TokenWyze" style="height:40px;width:auto;display:block;" /></a>
+    <a href="index.html"><img src="logo.png" alt="TokenWyze" style="height:40px;width:auto;display:block;" /></a>
     <p class="footer-copy">© <span id="footer-year"></span> TokenWyze</p>
     <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
   </footer>
