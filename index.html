@@ -505,7 +505,18 @@
       .articles-grid { grid-template-columns: 1fr; }
       .sa-inner { grid-template-columns: 1fr; gap: 48px; }
       .about-strip { grid-template-columns: 1fr; gap: 32px; }
-      .about-avatar { width: 120px; height: 120px; }
+      .about-avatar {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        border-radius: 4px;
+      }
+      .about-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
       .footer-top { flex-direction: column; gap: 40px; }
       .footer-links { flex-wrap: wrap; gap: 32px; }
       .nav-links { display: none; }
@@ -817,7 +828,7 @@
   <!-- ABOUT -->
   <section class="about-strip" id="about">
     <div class="about-avatar">
-      <img src="rotenda.jpg" alt="Rotenda Takalani" style="width:200px;height:200px;object-fit:cover;object-position:center top;border-radius:2px;display:block;" />
+      <img src="rotenda.jpg" alt="Rotenda Takalani" style="width:200px;height:200px;object-fit:cover;object-position:center top;border-radius:2px;display:block;max-width:100%;" />
     </div>
     <div>
       <h2 class="about-title">Rotenda <span>Takalani</span></h2>
