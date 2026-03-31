@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Khokha 2 — TokenWyze</title>
+  <title>Project Khokha 2, TokenWyze</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -66,7 +66,7 @@
     </h1>
     <p class="post-hero-sub">
       A thorough examination of the South African Reserve Bank's landmark distributed ledger
-      experiment — what was built, what was proved, and what legal, operational and policy
+      experiment, what was built, what was proved, and what legal, operational and policy
       questions remain unanswered.
     </p>
     <div class="post-meta-bar">
@@ -82,7 +82,7 @@
 
     <p class="post-lead">
       In April 2022, the South African Reserve Bank and the Intergovernmental Fintech Working
-      Group published the full report on Project Khokha 2 — one of the most technically
+      Group published the full report on Project Khokha 2, one of the most technically
       sophisticated central bank tokenisation experiments conducted anywhere in the world.
       This is a close reading of what they actually built, what worked, what did not, and why it matters.
     </p>
@@ -94,7 +94,7 @@
       <p>
         To understand Project Khokha 2 (PK2), you need to start with its predecessor. Project Khokha 1,
         launched in 2018, explored whether distributed ledger technology (DLT) could replicate core
-        functions of South Africa's real-time gross settlement system — the South African Multiple Option
+        functions of South Africa's real-time gross settlement system, the South African Multiple Option
         Settlement (SAMOS) system. The answer was yes. PK1 proved that elements of SAMOS could be
         duplicated at scale and speed on DLT while maintaining privacy, confidentiality, and providing
         the SARB sufficient oversight and operational management.
@@ -102,7 +102,7 @@
 
       <p>
         That success created the foundation for a harder question: what happens when you move beyond
-        interbank payments and attempt to tokenise an actual security — end to end, from issuance
+        interbank payments and attempt to tokenise an actual security, end to end, from issuance
         through to maturity settlement?
       </p>
 
@@ -110,7 +110,7 @@
 
       <p>
         Formally launched in February 2021 as an IFWG Innovation Accelerator project, PK2 focused
-        on the tokenisation of a SARB-issued debenture — a short-term debt security used to drain
+        on the tokenisation of a SARB-issued debenture, a short-term debt security used to drain
         excess liquidity from the domestic money markets. Debentures were deliberately chosen because
         they are directly under the SARB's control, making them practical to tokenise in a proof-of-concept,
         with the intention that insights could later be applied to other securities in different environments.
@@ -126,7 +126,7 @@
       <p>
         The project team was given an explicit mandate: do not simply replicate existing processes
         on new technology. Design for DLT. Re-imagine the market from first principles. This
-        distinction matters — it is what separates PK2 from tokenisation experiments that digitise
+        distinction matters, it is what separates PK2 from tokenisation experiments that digitise
         a workflow without questioning the underlying architecture.
       </p>
 
@@ -144,8 +144,8 @@
         To appreciate what PK2 built, it helps to understand what currently exists. In South Africa,
         SARB debentures are auctioned by the Financial Markets Department (FMD) every Wednesday
         when there is a need to drain liquidity. Bids from eligible commercial banks and asset managers
-        are placed, FMD allocates debentures to the best bidders, and Strate — as the central
-        securities depository (CSD) — facilitates settlement. Money settlement moves through SAMOS,
+        are placed, FMD allocates debentures to the best bidders, and Strate, as the central
+        securities depository (CSD), facilitates settlement. Money settlement moves through SAMOS,
         and the JSE assigns an ISIN to each debenture as the National Numbering Agency.
       </p>
 
@@ -159,7 +159,7 @@
       <h2>Two Platforms, One Debenture Token Market</h2>
 
       <p>
-        The proof-of-concept was built on two distinct DLT platforms designed to interoperate — and
+        The proof-of-concept was built on two distinct DLT platforms designed to interoperate, and
         that interoperability challenge turned out to be one of the most revealing aspects of the project.
       </p>
 
@@ -169,7 +169,7 @@
         The first platform was the wholesale central bank digital currency (wCBDC) Zone, built on
         R3 Corda. This platform was owned and operated by the SARB and served as the digital
         equivalent of the central bank's settlement system. The wCBDC token minted here was designed
-        to carry a direct and fungible claim on the SARB — equivalent in value and quality to money
+        to carry a direct and fungible claim on the SARB, equivalent in value and quality to money
         held in a settlement account at the central bank. When a wCBDC token transferred between
         participants, the associated claim on the central bank transferred with it.
       </p>
@@ -177,26 +177,26 @@
       <h3>The Khokha Hub</h3>
 
       <p>
-        The second platform — the Khokha Hub — was built on a custom implementation of the Cosmos
+        The second platform, the Khokha Hub, was built on a custom implementation of the Cosmos
         blockchain called BitFair. This is where the debenture tokens were issued and traded. Its
         modular architecture enabled it to serve simultaneously as a trading platform, a CSD, a
-        securities settlement system, and elements of a payment system — collapsing functions that
+        securities settlement system, and elements of a payment system, collapsing functions that
         currently require separate institutions onto a single decentralised platform.
       </p>
 
       <p>
         The Khokha Hub was envisioned as a consortium-governed token trading platform (TTP) operated
         jointly by market participants through a Khokha Council. Any participant could propose new
-        business logic as modules — comparable to decentralised applications in DeFi — which the
+        business logic as modules, comparable to decentralised applications in DeFi, which the
         Council would vote on whether to implement.
       </p>
 
       <div class="callout">
         <div class="callout-label">Three Prototypes Built in PK2</div>
         <ul>
-          <li>A wCBDC — a liability of the SARB, issued on the wCBDC Zone as an alternate form of central bank money restricted to settlement participants</li>
-          <li>A wholesale digital settlement token (wToken) called the Khokha Token — a commercial bank-issued stablecoin backed by funds earmarked in SAMOS settlement accounts, and redeemable for wCBDC</li>
-          <li>A DLT-based SARB debenture token — issued as an NFT on the Khokha Hub, designed specifically for DLT rather than as a digital copy of the existing instrument</li>
+          <li>A wCBDC, a liability of the SARB, issued on the wCBDC Zone as an alternate form of central bank money restricted to settlement participants</li>
+          <li>A wholesale digital settlement token (wToken) called the Khokha Token, a commercial bank-issued stablecoin backed by funds earmarked in SAMOS settlement accounts, and redeemable for wCBDC</li>
+          <li>A DLT-based SARB debenture token, issued as an NFT on the Khokha Hub, designed specifically for DLT rather than as a digital copy of the existing instrument</li>
         </ul>
       </div>
 
@@ -215,21 +215,21 @@
         Settlement in the primary market used a delivery-versus-payment (DvP) atomic swap. Three
         actions occurred simultaneously in a single transaction: the wCBDC moved from buyer to seller,
         ownership of the debenture NFT transferred to the buyer, and the NFT's data was validated
-        against its ISIN record. If any one of the three steps failed, all three were rolled back —
+        against its ISIN record. If any one of the three steps failed, all three were rolled back , 
         ensuring true DvP without the risk of one leg settling without the other.
       </p>
 
       <p>
         At maturity, FMD made payment of the principal and interest owed in wCBDC, which a
-        smart contract distributed to the relevant beneficiaries — directly equivalent to the MaFISI
+        smart contract distributed to the relevant beneficiaries, directly equivalent to the MaFISI
         (Maturity Financial Instrument Settlement Instruction) process in the current market.
       </p>
 
       <h3>Fractionalised Debt at Maturity Tokens</h3>
 
       <p>
-        To create liquidity in the secondary market — where high minimum values of ZAR 1 million
-        per debenture and different maturity dates made direct trading difficult — the team created
+        To create liquidity in the secondary market, where high minimum values of ZAR 1 million
+        per debenture and different maturity dates made direct trading difficult, the team created
         Fractionalised Debt at Maturity (FDM) Tokens. These synthetic instruments combined the
         principal value and interest of a debenture before maturity, making it fungible and tradeable
         in smaller amounts using a decentralised exchange order book on the Khokha Hub.
@@ -239,7 +239,7 @@
         An unintended consequence emerged here: the FDM Tokens, representing a claim against the
         central bank, could themselves be used as a form of money without converting them to wCBDC
         or Khokha Tokens. A security had effectively become a piece of what DeFi calls "Money Lego"
-        — a building block for further financial innovation. The report notes this with interest but also
+       , a building block for further financial innovation. The report notes this with interest but also
         flags that it runs contrary to the purpose of debentures, which is to drain liquidity from the
         market, not create new forms of it.
       </p>
@@ -247,7 +247,7 @@
       <h2>The Software Bridge: The Most Complex Element</h2>
 
       <p>
-        Enabling the wCBDC — issued on the wCBDC Zone — to be used on the Khokha Hub required
+        Enabling the wCBDC, issued on the wCBDC Zone, to be used on the Khokha Hub required
         a software bridge operated centrally by the SARB. When a bank wanted to buy debenture tokens
         with wCBDC, the wCBDC was moved to a cession wallet in the wCBDC Zone where it was
         frozen. An equivalent value of wCBDC was created on the Khokha Hub and credited to the
@@ -264,7 +264,7 @@
       </blockquote>
 
       <p>
-        This porting mechanism worked technically — but it exposed a significant legal tension. Under
+        This porting mechanism worked technically, but it exposed a significant legal tension. Under
         South African legislation, settlement in a designated settlement system is final and irrevocable.
         When wCBDC was moved to the Khokha Hub, it created a split between when operational
         settlement occurred and when legal settlement occurred. This is identified in the report as
@@ -283,8 +283,8 @@
       </p>
 
       <p>
-        The report makes an important distinction between role players and roles. The roles —
-        issuing, trading, settling, custodying — did not disappear. But the number of entities required
+        The report makes an important distinction between role players and roles. The roles , 
+        issuing, trading, settling, custodying, did not disappear. But the number of entities required
         to perform them could be significantly reduced. Reconciliation across multiple ledgers, a
         major source of cost and operational risk in current markets, would be eliminated by a single
         shared source of truth with different levels of access depending on participant roles.
@@ -292,8 +292,8 @@
 
       <p>
         However, the report is careful to note that existing structures evolved over time to ensure
-        the safety, efficiency, and resilience of financial markets. Some existing frictions — such as
-        those inherent in post-trade funding — exist for business reasons. Before discarding any
+        the safety, efficiency, and resilience of financial markets. Some existing frictions, such as
+        those inherent in post-trade funding, exist for business reasons. Before discarding any
         structure, its function and purpose must be fully understood.
       </p>
 
@@ -317,7 +317,7 @@
       <h3>Security tokens and the Financial Markets Act</h3>
       <p>
         Security tokens are not defined in the Financial Markets Act 19 of 2012. The regulatory
-        treatment of a tokenised SARB debenture — or any tokenised security — is therefore
+        treatment of a tokenised SARB debenture, or any tokenised security, is therefore
         uncertain. The report calls for the FMA to be updated to enable an agile and adaptive
         framework for emerging asset classes, ensuring legislation is technology neutral and principle
         based so that regulators can respond to changing market conditions without requiring
@@ -328,7 +328,7 @@
       <p>
         The Khokha Token, as a stablecoin used for wholesale settlement, would need to align
         with broader regulatory approaches to stablecoins. The report flags several Principles for
-        Financial Market Infrastructures (PFMIs) that present specific compliance challenges — including
+        Financial Market Infrastructures (PFMIs) that present specific compliance challenges, including
         PFMI 1 (enforceable legal basis), PFMI 2 (clear and transparent governance), PFMI 8
         (settlement finality), and PFMI 9 (settlement in central bank money where practical and available).
         At present, the FMA does not clearly define how a wToken would be treated in law.
@@ -339,7 +339,7 @@
         <p>The PK2 report identified four broad paths forward, drawn directly from its conclusions:</p>
         <ul>
           <li>A DLT innovation acceleration platform with industry, allowing financial institutions to explore DLT applications under regulatory oversight for an extended period</li>
-          <li>Collaboration with other jurisdictions — building on the SARB's participation in Project Dunbar to explore multi-wCBDC arrangements, potentially within the SADC region</li>
+          <li>Collaboration with other jurisdictions, building on the SARB's participation in Project Dunbar to explore multi-wCBDC arrangements, potentially within the SADC region</li>
           <li>A new phase of Project Khokha to build on PK2, potentially performing live transactions in a sandbox environment using a different use case</li>
           <li>Desktop research to explore the policy and regulatory implications of DLT-driven financial market innovation in more depth</li>
         </ul>
@@ -356,7 +356,7 @@
       <p>
         The report's central insight is that the true benefit and challenge of DLT may not stem from
         the technology itself, but from the business process innovation it enables. Moving to DLT-based
-        financial markets does not simply speed up existing processes — it forces a rethinking of
+        financial markets does not simply speed up existing processes, it forces a rethinking of
         which processes are necessary, who should perform them, and what the correct legal and
         governance architecture looks like in a tokenised world.
       </p>
