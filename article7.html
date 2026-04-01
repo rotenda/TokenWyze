@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <title>The Tokenisation Cryptos You Should Know, TokenWyze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C96A; --gold-dim: #8B7035;
+      --ink: #0D0D0D; --ink-soft: #2C2C2C; --muted: #6B6B6B;
+      --border: rgba(201,168,76,0.18); --surface: #F7F4EE; --white: #FDFCF9;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); }
+    nav { position: sticky; top: 0; z-index: 100; background: var(--ink); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 68px; }
+    .nav-back { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--gold); }
+    .post-hero { background: var(--ink); padding: 80px 5vw; border-bottom: 1px solid var(--border); }
+    .post-breadcrumb { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 24px; }
+    .post-hero-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.12); padding: 4px 12px; border-radius: 2px; display: inline-block; margin-bottom: 24px; }
+    .post-hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(32px, 5vw, 64px); line-height: 1.05; color: var(--white); max-width: 800px; margin-bottom: 28px; }
+    .post-hero-title em { font-style: italic; color: var(--gold); }
+    .post-hero-sub { font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55); max-width: 680px; line-height: 1.75; margin-bottom: 40px; }
+    .post-meta-bar { display: flex; align-items: center; gap: 24px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+    .post-meta-bar .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+    .post-body-wrap { max-width: 740px; margin: 0 auto; padding: 80px 5vw; }
+    .post-lead { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .post-body p { font-size: 17px; font-weight: 300; color: #333; line-height: 1.85; margin-bottom: 28px; }
+    .post-body h2 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 0.04em; color: var(--ink); margin: 56px 0 20px; }
+    .post-body blockquote { border-left: 3px solid var(--gold); padding: 4px 0 4px 28px; margin: 40px 0; }
+    .post-body blockquote p { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink-soft); line-height: 1.55; font-style: italic; margin: 0; }
+    .disclaimer { background: rgba(0,0,0,0.04); border-left: 3px solid rgba(0,0,0,0.15); padding: 16px 20px; margin: 0 0 40px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .token-card { background: var(--surface); border: 1px solid rgba(201,168,76,0.2); border-radius: 2px; padding: 32px; margin: 40px 0; }
+    .token-card-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .token-ticker { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); letter-spacing: 0.08em; min-width: 72px; }
+    .token-name { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink); }
+    .token-type { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); background: rgba(201,168,76,0.1); padding: 3px 10px; border-radius: 2px; margin-top: 4px; display: inline-block; }
+    .token-card p { font-size: 15px; font-weight: 300; color: #444; line-height: 1.8; margin-bottom: 14px; }
+    .token-card p:last-child { margin-bottom: 0; }
+    .token-card strong { font-weight: 500; color: var(--ink); }
+    .post-footer-tags { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 48px; border-top: 1px solid rgba(0,0,0,0.08); margin-top: 48px; }
+    .pfooter-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: rgba(0,0,0,0.05); padding: 6px 14px; border-radius: 2px; }
+    footer { background: var(--ink); padding: 40px 5vw; border-top: 1px solid rgba(201,168,76,0.15); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+    @media (max-width: 480px) { .token-card-header { flex-direction: column; align-items: flex-start; gap: 8px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html"><img src="logo.png" alt="TokenWyze" style="height:52px;width:auto;display:block;" /></a>
+    <a class="nav-back" href="index.html">← Back to All Articles</a>
+  </nav>
+
+  <header class="post-hero">
+    <p class="post-breadcrumb">Analysis · Crypto · Real-World Assets · Education</p>
+    <span class="post-hero-tag">Deep Dive</span>
+    <h1 class="post-hero-title">
+      The Tokenisation Cryptos
+      <em>You Should Know:</em>
+      A Plain-English Guide to the Projects Reshaping Finance
+    </h1>
+    <p class="post-hero-sub">
+      Not all cryptocurrencies are speculation. A growing number of projects are building
+      the infrastructure that will power tokenised capital markets. Here is what each one
+      does and why it matters.
+    </p>
+    <div class="post-meta-bar">
+      <span>March 2026</span>
+      <span class="dot"></span>
+      <span>10 min read</span>
+      <span class="dot"></span>
+      <span>RWA · Tokenisation · Crypto · Education</span>
+    </div>
+  </header>
+
+  <main class="post-body-wrap">
+
+    <div class="disclaimer">
+      This article is for educational purposes only and does not constitute financial or investment advice. Crypto assets carry significant risk. Always consult a professional advisor before making investment decisions.
+    </div>
+
+    <p class="post-lead">
+      The total value of tokenised real-world assets on blockchain networks reached approximately
+      45 billion US dollars in early 2026. Behind that number is a set of crypto projects
+      each playing a specific role in making tokenisation work. This is a plain-English
+      breakdown of the most important ones.
+    </p>
+
+    <div class="post-body">
+
+      <p>
+        When people talk about tokenisation, they often focus on the assets being tokenised:
+        government bonds, real estate, gold, private credit. What gets less attention is the
+        infrastructure that makes tokenisation possible. You need networks to settle transactions,
+        oracles to bring real-world data on-chain, protocols to issue and manage tokenised
+        products, and platforms to connect buyers and sellers.
+      </p>
+
+      <p>
+        The projects below sit at different points in that infrastructure. Some build the
+        pipes. Some build the products. Some build the bridges between the two. Understanding
+        what each one does helps you make sense of why tokenisation is more than just a concept
+        and is already functioning at meaningful scale.
+      </p>
+
+      <h2>The Infrastructure Layer</h2>
+
+      <p>
+        These are the projects that make tokenised markets technically possible. They do not
+        issue tokenised assets themselves, but without them, almost nothing else in this list
+        could function reliably.
+      </p>
+
+      <div class="token-card">
+        <div class="token-card-header">
+          <div class="token-ticker">LINK</div>
+          <div>
+            <div class="token-name">Chainlink</div>
+            <span class="token-type">Oracle Network</span>
+          </div>
+        </div>
+        <p>
+          <strong>What it does:</strong> Chainlink is a decentralised oracle network. An oracle
+          is essentially a bridge between the blockchain and the real world. Blockchains cannot
+          natively access external information such as the price of gold, the yield on a US
+          Treasury bill, or whether a particular company is solvent. Chainlink retrieves that
+          information from the real world and delivers it to smart contracts on-chain in a
+          way that is verified and tamper-resistant.
+        </p>
+        <p>
+          <strong>Why it matters for tokenisation:</strong> Every tokenised asset requires
+          accurate, real-time data about its underlying value. A tokenised government bond
+          needs verified interest rate data. A tokenised property fund needs a reliable net
+          asset value feed. Chainlink provides these data feeds, as well as its Proof of
+          Reserve service, which verifies that the assets backing a token actually exist.
+          Major institutions using Chainlink's infrastructure include banks and asset managers
+          that have built tokenised Treasury and fund products on top of it.
+        </p>
+        <p>
+          <strong>Think of it as:</strong> The data verification layer that keeps tokenised
+          markets honest.
+        </p>
+      </div>
+
+      <div class="token-card">
+        <div class="token-card-header">
+          <div class="token-ticker">XRP</div>
+          <div>
+            <div class="token-name">XRP Ledger</div>
+            <span class="token-type">Settlement Network</span>
+          </div>
+        </div>
+        <p>
+          <strong>What it does:</strong> XRP is the native currency of the XRP Ledger, a
+          blockchain built specifically for fast, low-cost settlement of financial transactions.
+          It can process around 1,500 transactions per second at minimal cost, making it one
+          of the fastest and cheapest settlement networks available. The ledger supports
+          permissioned token issuance and built-in compliance metadata, features that are
+          important for regulated financial instruments.
+        </p>
+        <p>
+          <strong>Why it matters for tokenisation:</strong> Several major institutions have
+          chosen the XRP Ledger as the network for tokenised assets. Ondo Finance launched
+          its tokenised US Treasury product on XRPL. Mercado Bitcoin, Latin America's largest
+          crypto exchange, tokenised over 200 million dollars in fixed-income and equity
+          assets on the ledger. Guggenheim Partners announced tokenised commercial paper
+          offerings there. The network has become a preferred destination for institutions
+          entering the tokenisation space precisely because it was designed for financial
+          settlement from the start, not retrofitted for it.
+        </p>
+        <p>
+          <strong>Think of it as:</strong> A financial settlement rail purpose-built for
+          institutional tokenised assets.
+        </p>
+      </div>
+
+      <div class="token-card">
+        <div class="token-card-header">
+          <div class="token-ticker">XLM</div>
+          <div>
+            <div class="token-name">Stellar</div>
+            <span class="token-type">Cross-Border Asset Network</span>
+          </div>
+        </div>
+        <p>
+          <strong>What it does:</strong> Stellar is a blockchain network designed for fast,
+          low-cost cross-border payments and asset tokenisation. It processes around 1,000
+          transactions per second with very low fees and has a native framework for KYC and
+          compliance built into the protocol itself. This makes it particularly attractive
+          for tokenised assets that need to move across borders while remaining compliant
+          with local regulations.
+        </p>
+        <p>
+          <strong>Why it matters for tokenisation:</strong> Stellar has become a significant
+          network for regulated tokenised products. Franklin Templeton launched its Benji
+          tokenised money market fund on Stellar, the first tokenised fund of its kind on
+          a public blockchain. WisdomTree Prime built tokenised investment funds there as
+          well. The network hosted over 590 million dollars in tokenised assets by mid-2025,
+          with partnerships involving Paxos, Ondo, and Societe Generale Forge pushing that
+          figure higher. For South Africa specifically, Stellar's cross-border capabilities
+          and built-in compliance tools make it relevant for future tokenised capital flows
+          within the SADC region.
+        </p>
+        <p>
+          <strong>Think of it as:</strong> A compliance-first network for cross-border
+          tokenised assets.
+        </p>
+      </div>
+
+      <h2>The Product Layer</h2>
+
+      <p>
+        These projects go beyond infrastructure and actually create tokenised financial
+        products that investors can hold and use.
+      </p>
+
+      <div class="token-card">
+        <div class="token-card-header">
+          <div class="token-ticker">ONDO</div>
+          <div>
+            <div class="token-name">Ondo Finance</div>
+            <span class="token-type">Tokenised Securities Protocol</span>
+          </div>
+        </div>
+        <p>
+          <strong>What it does:</strong> Ondo Finance builds tokenised financial products,
+          primarily focused on US government securities and money market instruments. Its
+          flagship product, OUSG, gives qualified investors on-chain exposure to short-term
+          US Treasuries. Ondo combines an asset management arm that creates the tokenised
+          products with a technology arm that builds DeFi protocols to make those products
+          accessible and composable.
+        </p>
+        <p>
+          <strong>Why it matters for tokenisation:</strong> Ondo is one of the clearest
+          examples of tokenisation moving from concept to working product. It brings
+          traditional fixed-income returns onto blockchain rails, meaning investors can
+          earn yield from US government bonds without going through a traditional broker.
+          In 2025, Ondo announced plans to expand into tokenised stocks and ETFs on Solana,
+          allowing users to buy and sell traditional securities using standard crypto wallets.
+          The project has attracted serious institutional attention because it focuses on
+          regulated, compliant offerings rather than unregulated speculation.
+        </p>
+        <p>
+          <strong>Think of it as:</strong> A bridge that brings government bonds and
+          equities onto the blockchain.
+        </p>
+      </div>
+
+      <div class="token-card">
+        <div class="token-card-header">
+          <div class="token-ticker">PAXG</div>
+          <div>
+            <div class="token-name">PAX Gold</div>
+            <span class="token-type">Tokenised Commodity</span>
+          </div>
+        </div>
+        <p>
+          <strong>What it does:</strong> PAX Gold is a token where each coin represents one
+          troy ounce of physical gold held in vaults in London by Paxos Trust Company,
+          a regulated financial institution. Holders of PAXG own actual allocated gold,
+          not a derivative or a promise. The gold can be redeemed for physical delivery or
+          sold back to Paxos at any time.
+        </p>
+        <p>
+          <strong>Why it matters for tokenisation:</strong> PAXG is one of the most
+          straightforward demonstrations of what tokenisation means in practice. Gold is
+          a globally recognised store of value, but owning physical gold has traditionally
+          meant dealing with storage, insurance, and logistics. PAXG eliminates all of that.
+          You can buy a fraction of an ounce, transfer it instantly anywhere in the world,
+          use it as collateral in DeFi protocols, or sell it 24 hours a day. For South
+          Africa, where gold is deeply embedded in the economy, tokenised gold represents
+          a particularly relevant use case for democratising access to a commodity that
+          has historically required significant capital to hold directly.
+        </p>
+        <p>
+          <strong>Think of it as:</strong> Physical gold in your crypto wallet.
+        </p>
+      </div>
+
+      <div class="token-card">
+        <div class="token-card-header">
+          <div class="token-ticker">CFG</div>
+          <div>
+            <div class="token-name">Centrifuge</div>
+            <span class="token-type">Private Credit Tokenisation</span>
+          </div>
+        </div>
+        <p>
+          <strong>What it does:</strong> Centrifuge is a protocol that enables the
+          tokenisation of real-world credit assets, primarily private loans, invoices,
+          and other forms of private debt. It allows businesses to bring their real-world
+          assets on-chain as collateral to access DeFi liquidity, while giving investors
+          exposure to yield-generating credit products that were previously only available
+          to institutional investors.
+        </p>
+        <p>
+          <strong>Why it matters for tokenisation:</strong> Private credit is one of the
+          largest and least accessible asset classes in traditional finance. Centrifuge
+          opens it up by tokenising the underlying loans and making them available to a
+          broader pool of capital. It has become an institutional toolkit for tokenised
+          funds and on-chain asset management, attracting attention from DeFi protocols
+          and traditional lenders alike. For emerging markets like South Africa, the ability
+          to tokenise trade finance and private credit could unlock significant new sources
+          of capital for businesses that struggle to access traditional lending.
+        </p>
+        <p>
+          <strong>Think of it as:</strong> A platform that puts private loans and credit
+          on the blockchain.
+        </p>
+      </div>
+
+      <h2>The Interoperability Layer</h2>
+
+      <p>
+        Tokenised assets do not all live on the same blockchain. Moving value between
+        different networks securely is one of the hardest problems in the space. These
+        projects work on solving it.
+      </p>
+
+      <div class="token-card">
+        <div class="token-card-header">
+          <div class="token-ticker">AVAX</div>
+          <div>
+            <div class="token-name">Avalanche</div>
+            <span class="token-type">Institutional Blockchain Platform</span>
+          </div>
+        </div>
+        <p>
+          <strong>What it does:</strong> Avalanche is a blockchain platform that allows
+          organisations to create their own customised blockchain networks, called subnets,
+          that operate within the Avalanche ecosystem. Each subnet can have its own rules,
+          validators, and compliance requirements, making it possible to build a private,
+          permissioned blockchain for institutional use while still benefiting from
+          Avalanche's underlying infrastructure and interoperability.
+        </p>
+        <p>
+          <strong>Why it matters for tokenisation:</strong> Avalanche has become a
+          preferred platform for financial institutions wanting to build their own tokenised
+          asset infrastructure. JPMorgan, Citi, and T. Rowe Price have all conducted
+          tokenised asset experiments using Avalanche's subnet architecture. The ability
+          to create a compliance-controlled environment while remaining connected to the
+          broader Avalanche network makes it attractive for regulated markets. Its speed,
+          processing thousands of transactions per second with sub-second finality, is also
+          well suited to capital markets applications.
+        </p>
+        <p>
+          <strong>Think of it as:</strong> A platform that lets banks and institutions
+          build their own compliant blockchains.
+        </p>
+      </div>
+
+      <div class="token-card">
+        <div class="token-card-header">
+          <div class="token-ticker">DOT</div>
+          <div>
+            <div class="token-name">Polkadot</div>
+            <span class="token-type">Cross-Chain Interoperability</span>
+          </div>
+        </div>
+        <p>
+          <strong>What it does:</strong> Polkadot is a blockchain that connects multiple
+          specialised blockchains into a single unified network. It allows different
+          blockchains to communicate and share information with each other securely,
+          solving one of the fundamental problems in crypto: assets and data trapped in
+          isolated networks that cannot interact.
+        </p>
+        <p>
+          <strong>Why it matters for tokenisation:</strong> As tokenised assets proliferate
+          across different blockchains, the ability to move them between networks becomes
+          critical. A tokenised bond issued on one chain needs to be usable as collateral
+          on another. A tokenised property token should be tradeable on multiple platforms.
+          Polkadot's interoperability architecture is designed to make this possible without
+          compromising security. For the future of tokenised capital markets, where no single
+          blockchain will host everything, cross-chain infrastructure like Polkadot's becomes
+          part of the essential plumbing.
+        </p>
+        <p>
+          <strong>Think of it as:</strong> The network that connects all the other
+          tokenisation networks together.
+        </p>
+      </div>
+
+      <h2>The Bigger Picture</h2>
+
+      <blockquote>
+        <p>
+          These are not speculative bets on technology that might one day be useful.
+          They are infrastructure projects serving a market that is already 45 billion
+          dollars in size and growing rapidly.
+        </p>
+      </blockquote>
+
+      <p>
+        What is striking about the tokenisation crypto landscape in 2026 is how clearly
+        the roles have become defined. There is infrastructure for data verification
+        (Chainlink), infrastructure for settlement (XRP, Stellar), platforms for building
+        institutional networks (Avalanche), protocols for issuing tokenised products
+        (Ondo, Centrifuge), tokenised commodities you can hold directly (PAX Gold), and
+        networks for connecting it all together (Polkadot).
+      </p>
+
+      <p>
+        For South Africa, each of these projects is relevant in a different way. Chainlink's
+        oracle infrastructure could support verified data feeds for JSE-listed tokenised
+        securities. Stellar's cross-border capabilities align with the SADC region's need
+        for affordable cross-border payment and settlement infrastructure. Ondo's model of
+        tokenised Treasuries could be adapted for tokenised South African government bonds.
+        PAX Gold's approach to commodity tokenisation is directly applicable to South
+        Africa's gold and platinum mining sectors.
+      </p>
+
+      <p>
+        The institutions and regulators that understand what each of these projects does,
+        and why, will be far better positioned to design a tokenisation framework that
+        actually works for South Africa's financial markets. That understanding starts here.
+      </p>
+
+    </div>
+
+    <div class="post-footer-tags">
+      <span class="pfooter-tag">Tokenisation</span>
+      <span class="pfooter-tag">RWA</span>
+      <span class="pfooter-tag">Chainlink</span>
+      <span class="pfooter-tag">XRP</span>
+      <span class="pfooter-tag">Stellar</span>
+      <span class="pfooter-tag">Ondo Finance</span>
+      <span class="pfooter-tag">PAX Gold</span>
+      <span class="pfooter-tag">Avalanche</span>
+      <span class="pfooter-tag">Polkadot</span>
+      <span class="pfooter-tag">South Africa</span>
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="index.html"><img src="logo.png" alt="TokenWyze" style="height:40px;width:auto;display:block;" /></a>
+    <p class="footer-copy">© <span id="footer-year"></span> TokenWyze</p>
+    <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+</body>
+</html>
