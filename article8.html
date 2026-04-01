@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <title>What is Tokenisation? A Simple Guide for African Markets, TokenWyze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C96A; --gold-dim: #8B7035;
+      --ink: #0D0D0D; --ink-soft: #2C2C2C; --muted: #6B6B6B;
+      --border: rgba(201,168,76,0.18); --surface: #F7F4EE; --white: #FDFCF9;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); }
+    nav { position: sticky; top: 0; z-index: 100; background: var(--ink); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 68px; }
+    .nav-back { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--gold); }
+    .post-hero { background: var(--ink); padding: 80px 5vw; border-bottom: 1px solid var(--border); }
+    .post-breadcrumb { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 24px; }
+    .post-hero-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.12); padding: 4px 12px; border-radius: 2px; display: inline-block; margin-bottom: 24px; }
+    .post-hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(32px, 5vw, 64px); line-height: 1.05; color: var(--white); max-width: 800px; margin-bottom: 28px; }
+    .post-hero-title em { font-style: italic; color: var(--gold); }
+    .post-hero-sub { font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55); max-width: 680px; line-height: 1.75; margin-bottom: 40px; }
+    .post-meta-bar { display: flex; align-items: center; gap: 24px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+    .post-meta-bar .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+    .post-body-wrap { max-width: 740px; margin: 0 auto; padding: 80px 5vw; }
+    .post-lead { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .post-body p { font-size: 17px; font-weight: 300; color: #333; line-height: 1.85; margin-bottom: 28px; }
+    .post-body h2 { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 0.04em; color: var(--ink); margin: 56px 0 20px; }
+    .post-body h3 { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); margin: 40px 0 16px; }
+    .post-body blockquote { border-left: 3px solid var(--gold); padding: 4px 0 4px 28px; margin: 40px 0; }
+    .post-body blockquote p { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink-soft); line-height: 1.55; font-style: italic; margin: 0; }
+    .callout { background: var(--surface); border: 1px solid rgba(201,168,76,0.2); padding: 28px 32px; margin: 40px 0; }
+    .callout-label { font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; }
+    .callout p { font-size: 15px !important; margin: 0 0 10px 0 !important; color: var(--ink-soft) !important; }
+    .callout ul { margin: 8px 0 0 20px; }
+    .callout ul li { font-size: 15px; color: var(--ink-soft); margin-bottom: 10px; line-height: 1.6; }
+    .example-box { background: var(--ink); color: var(--white); padding: 28px 32px; margin: 40px 0; border-radius: 2px; }
+    .example-label { font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .example-box p { font-size: 15px !important; color: rgba(255,255,255,0.75) !important; line-height: 1.75; margin-bottom: 0 !important; }
+    .post-footer-tags { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 48px; border-top: 1px solid rgba(0,0,0,0.08); margin-top: 48px; }
+    .pfooter-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: rgba(0,0,0,0.05); padding: 6px 14px; border-radius: 2px; }
+    footer { background: var(--ink); padding: 40px 5vw; border-top: 1px solid rgba(201,168,76,0.15); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html"><img src="logo.png" alt="TokenWyze" style="height:52px;width:auto;display:block;" /></a>
+    <a class="nav-back" href="index.html">← Back to All Articles</a>
+  </nav>
+
+  <header class="post-hero">
+    <p class="post-breadcrumb">Education · Africa · Tokenisation · Beginners</p>
+    <span class="post-hero-tag">Simple Guide</span>
+    <h1 class="post-hero-title">
+      What is Tokenisation?
+      <em>A Simple Guide</em>
+      for African Markets
+    </h1>
+    <p class="post-hero-sub">
+      Tokenisation is one of the most important financial concepts of our time.
+      It is also one of the most misunderstood. This guide explains it clearly,
+      with examples that speak directly to the African context.
+    </p>
+    <div class="post-meta-bar">
+      <span>March 2026</span>
+      <span class="dot"></span>
+      <span>9 min read</span>
+      <span class="dot"></span>
+      <span>Education · Africa · RWA · Financial Inclusion</span>
+    </div>
+  </header>
+
+  <main class="post-body-wrap">
+
+    <p class="post-lead">
+      Imagine owning a share of a Sandton office building for the price of a takeaway meal.
+      Or a Kenyan farmer tokenising next season's harvest to access a loan today. Or a
+      South African student in Johannesburg buying a fraction of a US government bond
+      from her phone. This is not science fiction. This is tokenisation, and it is already
+      happening across Africa.
+    </p>
+
+    <div class="post-body">
+
+      <h2>Start Here: What Does Tokenisation Actually Mean?</h2>
+
+      <p>
+        Tokenisation is the process of converting ownership rights in a real-world asset
+        into a digital token that lives on a blockchain. That token represents your stake
+        in the underlying asset, whether it is a property, a government bond, a piece of
+        gold, a business loan, or even a share in a company.
+      </p>
+
+      <p>
+        Think of it this way. When you buy a share on the Johannesburg Stock Exchange, you
+        receive a digital record confirming that you own a piece of a company. That record
+        sits in a centralised database managed by Strate, South Africa's central securities
+        depository. Tokenisation does something similar, but the record lives on a
+        blockchain instead. This changes three things fundamentally: who can participate,
+        how quickly transactions settle, and how much the whole process costs.
+      </p>
+
+      <div class="example-box">
+        <div class="example-label">A Real African Example</div>
+        <p>
+          In April 2024, a South African private school network called Die MOS Inisiatief
+          raised R100 million through a tokenised corporate bond issued on a blockchain
+          platform. The minimum investment was just R5,000, roughly the price of a
+          mid-range smartphone. Over 65% of that capital came from retail investors,
+          including ordinary South Africans who would never have been able to participate
+          in a traditional bond issuance. That is tokenisation working in practice.
+        </p>
+      </div>
+
+      <h2>The Problem Tokenisation Solves</h2>
+
+      <p>
+        Africa has one of the most compelling cases for tokenisation of any region in the
+        world. The continent sits on enormous wealth. It holds vast mineral resources,
+        agricultural land, infrastructure assets, and a young, growing population with
+        rising incomes. Yet most of this wealth is locked away from ordinary people.
+      </p>
+
+      <p>
+        The reason is simple: access. Traditional financial markets have high barriers to
+        entry. To invest in a commercial property, you typically need millions of rands.
+        To access government bonds in most African markets, you need to go through an
+        institutional broker with minimum investment thresholds that exclude most of the
+        population. To send money across borders within Africa, you often pay fees of
+        between 8 and 15 percent because of the fragmented correspondent banking system.
+      </p>
+
+      <p>
+        Africa also has a severe SME financing gap. Small and medium enterprises account
+        for the majority of employment across the continent but face severe constraints in
+        accessing credit. According to the International Finance Corporation and African
+        Development Bank, that financing gap exceeds 300 billion US dollars. Traditional
+        banks require collateral that many SMEs simply do not have.
+      </p>
+
+      <blockquote>
+        <p>
+          Tokenisation is one financial innovation race where Africa could position
+          itself to be on par with other emerging markets. Africa has the market and
+          could go to scale much faster.
+        </p>
+      </blockquote>
+
+      <p>
+        Tokenisation addresses all of these problems simultaneously. It breaks large assets
+        into smaller, affordable pieces. It removes the intermediaries that add cost and
+        delay. It operates 24 hours a day, seven days a week, across borders, on a phone.
+        And it creates a transparent, auditable record of every transaction that regulators
+        and investors can verify in real time.
+      </p>
+
+      <h2>How It Works: The Four Steps</h2>
+
+      <h3>Step 1: Choose the asset</h3>
+      <p>
+        Any asset with value can in principle be tokenised. The most common examples are
+        real estate, government bonds, corporate bonds, commodities like gold and oil,
+        private business loans, and infrastructure projects. In the African context,
+        agricultural land, renewable energy projects, and trade receivables are also
+        being explored as tokenisation candidates.
+      </p>
+
+      <h3>Step 2: Create the token</h3>
+      <p>
+        A legal and technical process converts the ownership right into a digital token
+        on a blockchain. Each token represents a defined fraction of the asset. The token
+        contains all the relevant information: who the issuer is, what the asset is, what
+        rights the token holder has, and what happens at maturity or upon sale. This
+        information is embedded in a smart contract, a piece of code that automatically
+        executes agreed terms without requiring a human intermediary.
+      </p>
+
+      <h3>Step 3: Distribute and trade</h3>
+      <p>
+        Tokens are sold to investors through a platform. Because they are digital and
+        divisible, they can be sold in very small units to very large numbers of people.
+        Unlike traditional securities, which often require days to settle after a trade,
+        tokenised assets can settle in seconds using blockchain technology. This is called
+        delivery-versus-payment, and it eliminates the counterparty risk that exists in
+        the settlement gap of traditional markets.
+      </p>
+
+      <h3>Step 4: Manage and mature</h3>
+      <p>
+        Smart contracts automatically handle ongoing obligations. If you hold a tokenised
+        bond, the coupon payments are automatically distributed to your wallet on the
+        scheduled date. If you hold a tokenised property, your share of rental income
+        can be automatically transferred. There is no manual processing, no intermediary
+        taking a cut, and no waiting for a cheque to clear.
+      </p>
+
+      <h2>Why Africa Is Uniquely Positioned</h2>
+
+      <p>
+        Africa did not build the legacy financial infrastructure that is now holding
+        developed markets back. Europe and America spent decades building centralised
+        clearinghouses, paper-based settlement systems, and correspondent banking networks
+        that are expensive to maintain and slow to upgrade. Africa, in many cases, never
+        built those systems at scale.
+      </p>
+
+      <p>
+        This is the same dynamic that allowed Africa to leapfrog fixed-line telecoms and
+        go straight to mobile phones. It is the same dynamic that gave Africa M-Pesa,
+        the world's first large-scale mobile money system, years before digital wallets
+        existed in Europe. Kenya's M-Pesa was, in a very real sense, an early form of
+        tokenised value: digital representations of money moving instantly, peer to peer,
+        without a bank account. Tokenisation simply extends that logic to a far wider
+        range of assets.
+      </p>
+
+      <div class="callout">
+        <div class="callout-label">Africa's digital foundation is already in place</div>
+        <ul>
+          <li>Africa has 1.1 billion registered mobile money accounts, more than half the world's total</li>
+          <li>Mobile money transactions across sub-Saharan Africa surpassed 700 billion US dollars in 2023</li>
+          <li>Africa leads the world in stablecoin adoption, with 79% of crypto-active users holding stablecoins, compared to 45% in high-income markets</li>
+          <li>African diaspora remittances reached 54 billion US dollars in 2023, representing pools of savings that tokenised investment products could capture</li>
+          <li>The tokenisation market in Africa is projected to reach 100 billion US dollars by the end of 2026, according to PwC</li>
+        </ul>
+      </div>
+
+      <h2>What Is Already Happening Across the Continent</h2>
+
+      <h3>South Africa</h3>
+      <p>
+        South Africa has the continent's most advanced financial infrastructure and is
+        furthest along the regulatory path. The South African Reserve Bank's Project Khokha
+        demonstrated that a tokenised government security could be issued and settled using
+        a wholesale central bank digital currency. The Die MOS tokenised bond showed that
+        retail investors could access corporate debt for as little as R5,000. Stablecoins
+        have displaced Bitcoin as South Africa's most widely used digital asset, with
+        volumes growing approximately 50% month on month since late 2024. The FSCA and
+        National Treasury are actively working on frameworks to bring crypto assets and
+        tokenised securities into the formal regulatory perimeter.
+      </p>
+
+      <h3>Kenya</h3>
+      <p>
+        Kenya's M-Pesa ecosystem gave the country a head start in digital financial
+        infrastructure. The Nairobi Securities Exchange partnered with DeFi Technologies
+        and other partners in 2024 to explore digital asset exchange-traded products.
+        Kenyan fintech startups are prototyping agricultural and renewable energy asset
+        tokens, allowing smallholders and investors to share in farm or solar yields with
+        very small initial investments. The cultural familiarity with M-Pesa means that
+        Kenyans already understand the concept of digital value moving instantly between
+        people, making tokenisation a natural extension rather than a foreign concept.
+      </p>
+
+      <h3>Nigeria</h3>
+      <p>
+        Nigeria recorded nearly 22 billion US dollars in stablecoin transactions between
+        mid-2023 and mid-2024, the largest volume on the continent. Stablecoins are being
+        used for cross-border payments, remittances, and as a store of value in an
+        environment of persistent currency pressure. The country's regulatory sandbox pilots
+        are exploring how blockchain-based financial products can be brought into a formal
+        framework. Given that Nigerian SMEs account for 60 to 70% of employment and nearly
+        half of GDP, the potential for tokenised trade finance and SME credit is enormous.
+      </p>
+
+      <h3>Uganda</h3>
+      <p>
+        Uganda launched a central bank digital currency pilot linked to a 5.5 billion US
+        dollar real-world asset tokenisation initiative aligned with continental trade and
+        infrastructure objectives, one of the most ambitious tokenisation programmes
+        announced anywhere on the continent.
+      </p>
+
+      <h2>The Challenges That Must Be Addressed</h2>
+
+      <p>
+        Tokenisation is not without risk and Africa's path will not be without obstacles.
+        Three challenges stand above the others.
+      </p>
+
+      <h3>Regulation</h3>
+      <p>
+        Clear regulatory frameworks do not yet exist in most African markets for tokenised
+        securities. Without legal clarity on what a token represents, how it is taxed, and
+        what investor protections apply, institutional capital will stay on the sidelines.
+        South Africa is ahead of most, but even here the frameworks are still being built.
+        Regulators across the continent need to move from observation to active framework
+        development without stifling innovation in the process.
+      </p>
+
+      <h3>Data quality and governance</h3>
+      <p>
+        A tokenised asset is only as trustworthy as the data underpinning it. If the
+        underlying asset is misrepresented, if valuations are inaccurate, or if ownership
+        records are disputed, the token loses its value proposition. Africa has real
+        challenges with data infrastructure, land registries, and corporate record keeping
+        that need to be addressed for tokenisation to function at scale.
+      </p>
+
+      <h3>Digital access</h3>
+      <p>
+        Tokenisation runs on smartphones and internet connections. Large parts of rural
+        Africa still lack reliable connectivity. The financial inclusion promise of
+        tokenisation can only be fully realised if digital infrastructure keeps pace.
+        The good news is that mobile penetration continues to expand rapidly, and satellite
+        internet is reaching areas that fixed-line infrastructure never will.
+      </p>
+
+      <h2>What This Means for You</h2>
+
+      <p>
+        Whether you are an investor, a business owner, a regulator, or simply a curious
+        observer of where finance is going, tokenisation is relevant to you. It is not
+        a distant technology reserved for Silicon Valley or Wall Street. It is already
+        being built in Johannesburg, Nairobi, Lagos, and Kampala.
+      </p>
+
+      <p>
+        For investors, it means access to asset classes that were previously beyond reach.
+        For businesses, it means new ways to raise capital without the gatekeepers of
+        traditional finance. For regulators, it means both an opportunity to design a
+        modern financial system from first principles and a responsibility to do so before
+        informal and unregulated markets fill the gap.
+      </p>
+
+      <p>
+        Africa has the mobile infrastructure. It has the demographic scale. It has the
+        assets. It has proven, with M-Pesa and mobile money, that it can build world-leading
+        financial innovation when the conditions are right. Tokenisation is the next chapter
+        of that story. The question is not whether it will happen. The question is whether
+        Africa will lead it or follow it.
+      </p>
+
+    </div>
+
+    <div class="post-footer-tags">
+      <span class="pfooter-tag">Tokenisation</span>
+      <span class="pfooter-tag">Africa</span>
+      <span class="pfooter-tag">South Africa</span>
+      <span class="pfooter-tag">Kenya</span>
+      <span class="pfooter-tag">Nigeria</span>
+      <span class="pfooter-tag">Financial Inclusion</span>
+      <span class="pfooter-tag">RWA</span>
+      <span class="pfooter-tag">Education</span>
+      <span class="pfooter-tag">Blockchain</span>
+      <span class="pfooter-tag">SME Finance</span>
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="index.html"><img src="logo.png" alt="TokenWyze" style="height:40px;width:auto;display:block;" /></a>
+    <p class="footer-copy">© <span id="footer-year"></span> TokenWyze</p>
+    <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+</body>
+</html>
