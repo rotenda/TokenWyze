@@ -145,53 +145,6 @@
       background: rgba(255,255,255,0.08);
     }
 
-    .interests-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.5);
-      margin-bottom: 14px; display: block;
-    }
-    .interests-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-      margin-bottom: 32px;
-    }
-    .interest-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 2px; cursor: pointer;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .interest-item:hover {
-      border-color: rgba(201,168,76,0.3);
-      background: rgba(201,168,76,0.05);
-    }
-    .interest-item input[type="checkbox"] { display: none; }
-    .interest-check {
-      width: 16px; height: 16px; border-radius: 2px;
-      border: 1px solid rgba(255,255,255,0.2);
-      flex-shrink: 0; display: flex; align-items: center;
-      justify-content: center; transition: all 0.15s;
-    }
-    .interest-item.checked .interest-check {
-      background: var(--gold); border-color: var(--gold);
-    }
-    .interest-item.checked .interest-check::after {
-      content: '';
-      width: 8px; height: 5px;
-      border-left: 2px solid var(--ink);
-      border-bottom: 2px solid var(--ink);
-      transform: rotate(-45deg) translateY(-1px);
-      display: block;
-    }
-    .interest-item.checked {
-      border-color: rgba(201,168,76,0.4);
-      background: rgba(201,168,76,0.07);
-    }
-    .interest-text {
-      font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.3;
-    }
-
     .btn-subscribe {
       width: 100%; padding: 16px;
       background: var(--gold); color: var(--ink);
@@ -328,36 +281,12 @@
 
           <div class="form-group">
             <label class="form-label" for="fname">First name</label>
-            <input class="form-input" type="text" id="fname" name="FNAME" placeholder="Rotenda" required />
+            <input class="form-input" type="text" id="fname" name="FNAME" placeholder="Your name" />
           </div>
 
-          <div class="form-group">
+          <div class="form-group" style="margin-bottom:32px;">
             <label class="form-label" for="email">Email address</label>
             <input class="form-input" type="email" id="email" name="EMAIL" placeholder="you@example.com" required />
-          </div>
-
-          <span class="interests-label">I am most interested in</span>
-          <div class="interests-grid">
-            <label class="interest-item" onclick="toggleInterest(this)">
-              <input type="checkbox" name="group[interests][1]" value="1" />
-              <div class="interest-check"></div>
-              <span class="interest-text">New articles</span>
-            </label>
-            <label class="interest-item" onclick="toggleInterest(this)">
-              <input type="checkbox" name="group[interests][2]" value="2" />
-              <div class="interest-check"></div>
-              <span class="interest-text">Market digest</span>
-            </label>
-            <label class="interest-item" onclick="toggleInterest(this)">
-              <input type="checkbox" name="group[interests][4]" value="4" />
-              <div class="interest-check"></div>
-              <span class="interest-text">SA regulatory updates</span>
-            </label>
-            <label class="interest-item" onclick="toggleInterest(this)">
-              <input type="checkbox" name="group[interests][8]" value="8" />
-              <div class="interest-check"></div>
-              <span class="interest-text">Tokenisation news</span>
-            </label>
           </div>
 
           <!-- Mailchimp bot protection - do not remove -->
@@ -388,12 +317,6 @@
   </div>
 
   <script>
-    function toggleInterest(el) {
-      el.classList.toggle('checked');
-      const cb = el.querySelector('input[type="checkbox"]');
-      cb.checked = !cb.checked;
-    }
-
     document.getElementById('subscribe-form').addEventListener('submit', function(e) {
       const email = document.getElementById('email').value;
 
