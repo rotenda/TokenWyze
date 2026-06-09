@@ -771,5 +771,340 @@
     </div>
   </footer>
 
+  <!-- ── EMIL KOWALSKI MOTION + TASTEKILL POLISH ── -->
+  <style>
+    /* --- Custom easing curves (Emil: never use CSS defaults) --- */
+    :root {
+      --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+      --ease-snappy:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --dur-micro: 120ms;
+      --dur-fast:  220ms;
+      --dur-base:  280ms;
+      --dur-slow:  420ms;
+    }
+
+    /* --- Nav: blur backdrop + smooth logo scale on scroll --- */
+    nav {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(13,13,13,0.88);
+      transition: box-shadow var(--dur-base) var(--ease-out-expo),
+                  background var(--dur-base) var(--ease-out-expo);
+    }
+    nav.scrolled {
+      box-shadow: 0 1px 0 rgba(201,168,76,0.15), 0 8px 32px rgba(0,0,0,0.4);
+    }
+    nav a img {
+      transition: opacity var(--dur-fast) var(--ease-snappy),
+                  transform var(--dur-fast) var(--ease-spring);
+    }
+    nav a:hover img { opacity: 0.85; transform: scale(1.03); }
+
+    /* --- Nav links: underline slide-in --- */
+    .nav-links a {
+      position: relative;
+      transition: color var(--dur-fast) var(--ease-snappy);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width var(--dur-base) var(--ease-out-expo);
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* --- Subscribe button: lift + glow --- */
+    .nav-cta {
+      transition: background var(--dur-fast) var(--ease-snappy),
+                  transform var(--dur-micro) var(--ease-spring),
+                  box-shadow var(--dur-fast) var(--ease-snappy);
+    }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(201,168,76,0.35);
+    }
+    .nav-cta:active { transform: translateY(0px) scale(0.98); }
+
+    /* --- Hero text: staggered entrance --- */
+    .hero-eyebrow,
+    .hero-headline,
+    .hero-sub,
+    .hero-actions {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: slideUp var(--dur-slow) var(--ease-out-expo) forwards;
+    }
+    .hero-eyebrow  { animation-delay: 80ms; }
+    .hero-headline { animation-delay: 180ms; }
+    .hero-sub      { animation-delay: 280ms; }
+    .hero-actions  { animation-delay: 380ms; }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Ticker items: fade in staggered --- */
+    .ticker-item {
+      opacity: 0;
+      animation: fadeIn var(--dur-base) var(--ease-out-expo) forwards;
+    }
+    .ticker-item:nth-child(1) { animation-delay: 500ms; }
+    .ticker-item:nth-child(2) { animation-delay: 580ms; }
+    .ticker-item:nth-child(3) { animation-delay: 660ms; }
+    .ticker-item:nth-child(4) { animation-delay: 740ms; }
+    .ticker-item:nth-child(5) { animation-delay: 820ms; }
+    .ticker-item:nth-child(6) { animation-delay: 900ms; }
+    .ticker-item:nth-child(7) { animation-delay: 980ms; }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* --- Ticker price value: pulse when updated --- */
+    .ticker-val {
+      transition: color var(--dur-fast) var(--ease-snappy);
+    }
+    .ticker-val.flash {
+      animation: priceFlash 600ms var(--ease-out-expo);
+    }
+    @keyframes priceFlash {
+      0%   { color: var(--gold-light); }
+      100% { color: var(--gold); }
+    }
+
+    /* --- Ticker change badge: spring in --- */
+    .ticker-change {
+      transition: transform var(--dur-micro) var(--ease-spring);
+    }
+    .ticker-item:hover .ticker-change {
+      transform: scale(1.08);
+    }
+
+    /* --- Hero action buttons --- */
+    .btn-primary {
+      transition: background var(--dur-fast) var(--ease-snappy),
+                  transform var(--dur-micro) var(--ease-spring),
+                  box-shadow var(--dur-fast) var(--ease-snappy);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201,168,76,0.4);
+    }
+    .btn-primary:active { transform: translateY(0) scale(0.98); }
+
+    .btn-ghost {
+      transition: border-color var(--dur-fast) var(--ease-snappy),
+                  color var(--dur-fast) var(--ease-snappy),
+                  transform var(--dur-micro) var(--ease-spring);
+    }
+    .btn-ghost:hover { transform: translateY(-1px); }
+    .btn-ghost:active { transform: translateY(0) scale(0.98); }
+
+    /* --- Scroll reveal: sections fade up as they enter viewport --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity var(--dur-slow) var(--ease-out-expo),
+                  transform var(--dur-slow) var(--ease-out-expo);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- Article cards: lift + border glow --- */
+    .article-card {
+      transition: transform var(--dur-base) var(--ease-out-expo),
+                  box-shadow var(--dur-base) var(--ease-out-expo),
+                  background var(--dur-fast) var(--ease-snappy);
+      will-change: transform;
+    }
+    .article-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.10),
+                  0 0 0 1px rgba(201,168,76,0.18);
+      background: var(--white);
+    }
+
+    /* --- Article arrow: slide right on card hover --- */
+    .article-card .article-arrow {
+      display: inline-block;
+      transition: transform var(--dur-base) var(--ease-spring),
+                  color var(--dur-fast) var(--ease-snappy);
+    }
+    .article-card:hover .article-arrow {
+      transform: translateX(6px);
+      color: var(--gold);
+    }
+
+    /* --- SA cards: border light sweep on hover --- */
+    .sa-card {
+      position: relative;
+      overflow: hidden;
+      transition: background var(--dur-base) var(--ease-out-expo),
+                  border-color var(--dur-base) var(--ease-out-expo),
+                  transform var(--dur-fast) var(--ease-spring);
+    }
+    .sa-card::before {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.06), transparent);
+      transition: left var(--dur-slow) var(--ease-out-expo);
+      pointer-events: none;
+    }
+    .sa-card:hover::before { left: 140%; }
+    .sa-card:hover { transform: translateX(4px); }
+
+    /* --- SA primary button --- */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.12);
+      opacity: 0;
+      transition: opacity var(--dur-fast) var(--ease-snappy);
+    }
+    .btn-primary:hover::after { opacity: 1; }
+
+    /* --- About photo: subtle zoom on hover --- */
+    .about-avatar img {
+      transition: transform var(--dur-slow) var(--ease-out-expo);
+    }
+    .about-avatar:hover img { transform: scale(1.03); }
+
+    /* --- About tags: spring pop on hover --- */
+    .about-tag {
+      transition: background var(--dur-fast) var(--ease-snappy),
+                  color var(--dur-fast) var(--ease-snappy),
+                  transform var(--dur-micro) var(--ease-spring);
+      cursor: default;
+    }
+    .about-tag:hover {
+      background: rgba(201,168,76,0.15);
+      color: var(--gold-dim);
+      transform: scale(1.04);
+    }
+
+    /* --- Newsletter input: focus ring animation --- */
+    .newsletter-form input {
+      transition: box-shadow var(--dur-fast) var(--ease-out-expo),
+                  border-color var(--dur-fast) var(--ease-snappy);
+      outline: none;
+    }
+    .newsletter-form input:focus {
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.18);
+    }
+    .newsletter-form button {
+      transition: background var(--dur-fast) var(--ease-snappy),
+                  transform var(--dur-micro) var(--ease-spring),
+                  box-shadow var(--dur-fast) var(--ease-snappy);
+    }
+    .newsletter-form button:hover {
+      transform: scale(1.02);
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+    }
+    .newsletter-form button:active { transform: scale(0.98); }
+
+    /* --- Footer links --- */
+    .footer-col a {
+      transition: color var(--dur-fast) var(--ease-snappy),
+                  transform var(--dur-micro) var(--ease-spring);
+      display: inline-block;
+    }
+    .footer-col a:hover {
+      color: var(--white);
+      transform: translateX(3px);
+    }
+
+    /* --- Section label line: draw in on scroll --- */
+    .section-label::after {
+      transition: max-width var(--dur-slow) var(--ease-out-expo);
+    }
+
+    /* --- Stat numbers in hero: count-up handled via JS --- */
+    .stat-num { font-variant-numeric: tabular-nums; }
+
+    /* --- Reduced motion: respect the user --- */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+
+  <script>
+    // ── Nav scroll state ──
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll(
+      '.articles-section, .sa-section, .newsletter-section, .about-strip, .articles-grid .article-card, .sa-card'
+    );
+    revealEls.forEach(el => el.classList.add('reveal'));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger children inside grids
+          setTimeout(() => entry.target.classList.add('visible'), i * 40);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Ticker price flash when values update ──
+    const origFetch = window.fetchPrices;
+    if (typeof fetchPrices === 'function') {
+      const _orig = fetchPrices;
+      window.fetchPrices = async function() {
+        await _orig();
+        document.querySelectorAll('.ticker-val').forEach(el => {
+          el.classList.remove('flash');
+          void el.offsetWidth; // reflow
+          el.classList.add('flash');
+        });
+      };
+    }
+
+    // ── Magnetic effect on primary CTA buttons ──
+    document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width  / 2) * 0.12;
+        const y = (e.clientY - rect.top  - rect.height / 2) * 0.12;
+        btn.style.transform = `translate(${x}px, ${y}px) translateY(-1px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+
+    // ── Smooth cursor-aware tilt on article cards ──
+    document.querySelectorAll('.article-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width  - 0.5;
+        const y = (e.clientY - rect.top)  / rect.height - 0.5;
+        card.style.transform = `translateY(-4px) rotateX(${-y * 3}deg) rotateY(${x * 3}deg)`;
+        card.style.transition = 'transform 80ms linear, box-shadow 220ms cubic-bezier(0.16,1,0.3,1), background 220ms';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = '';
+      });
+    });
+  </script>
+
 </body>
 </html>
