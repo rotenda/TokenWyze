@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <title>The Chain Is Not the Register, TokenWyze</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C96A; --gold-dim: #8B7035;
+      --ink: #0D0D0D; --ink-soft: #2C2C2C; --muted: #6B6B6B;
+      --border: rgba(201,168,76,0.18); --surface: #F7F4EE; --white: #FDFCF9;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); }
+    nav { position: sticky; top: 0; z-index: 100; background: var(--ink); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 68px; }
+    .nav-back { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: var(--gold); }
+    .post-hero { background: var(--ink); padding: 80px 5vw; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .post-hero::before { content: 'REG'; position: absolute; right: 3vw; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(100px, 16vw, 200px); color: rgba(201,168,76,0.04); pointer-events: none; line-height: 1; letter-spacing: 0.05em; }
+    .post-breadcrumb { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 24px; }
+    .post-hero-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.12); padding: 4px 12px; border-radius: 2px; display: inline-block; margin-bottom: 24px; }
+    .post-hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 5.5vw, 68px); line-height: 1.02; color: var(--white); max-width: 780px; margin-bottom: 28px; }
+    .post-hero-title em { font-style: italic; color: var(--gold); }
+    .post-hero-sub { font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.55); max-width: 660px; line-height: 1.75; margin-bottom: 40px; }
+    .post-meta-bar { display: flex; align-items: center; gap: 24px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; flex-wrap: wrap; }
+    .post-meta-bar .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+    .post-body-wrap { max-width: 740px; margin: 0 auto; padding: 80px 5vw; }
+    .post-lead { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .post-body p { font-size: 17px; font-weight: 300; color: #333; line-height: 1.85; margin-bottom: 28px; }
+    .post-body h2 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.04em; color: var(--ink); margin: 56px 0 20px; }
+    .post-body h3 { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink); margin: 36px 0 14px; font-style: italic; }
+    .post-body strong { font-weight: 600; color: var(--ink); }
+    .post-body blockquote { border-left: 3px solid var(--gold); padding: 4px 0 4px 28px; margin: 40px 0; }
+    .post-body blockquote p { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--ink-soft); line-height: 1.6; font-style: italic; margin: 0; }
+
+    /* Core thesis box */
+    .thesis-box { background: var(--ink); border: 1px solid rgba(201,168,76,0.25); padding: 32px; margin: 40px 0; border-radius: 2px; }
+    .thesis-label { font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
+    .thesis-text { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--white); line-height: 1.55; font-style: italic; }
+
+    /* Jurisdiction cards */
+    .jur-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 40px 0; }
+    .jur-card { background: var(--surface); border: 1px solid rgba(0,0,0,0.08); padding: 24px; border-radius: 2px; }
+    .jur-flag { font-size: 22px; margin-bottom: 8px; }
+    .jur-name { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 6px; }
+    .jur-title { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--ink); margin-bottom: 10px; }
+    .jur-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .jur-verdict { font-size: 12px; font-weight: 600; color: var(--ink); margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.07); }
+
+    /* Architecture decisions */
+    .arch-list { margin: 40px 0; }
+    .arch-item { background: var(--ink); padding: 28px 32px; margin-bottom: 8px; border-radius: 2px; border-left: 3px solid var(--gold); }
+    .arch-num { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 0.2em; color: var(--gold-dim); margin-bottom: 6px; }
+    .arch-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .arch-body { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.75; }
+    .arch-why { font-size: 12px; color: var(--gold); margin-top: 12px; font-weight: 500; }
+
+    /* Freeze vs burn */
+    .compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+    .compare-card { padding: 22px; border-radius: 2px; }
+    .compare-card.wrong { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); }
+    .compare-card.right { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.15); }
+    .compare-verdict { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+    .wrong .compare-verdict { color: #f87171; }
+    .right .compare-verdict { color: #4ade80; }
+    .compare-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+    .compare-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.65; }
+
+    .github-box { background: var(--surface); border: 1px solid rgba(201,168,76,0.2); padding: 24px 28px; margin: 40px 0; display: flex; align-items: center; gap: 20px; border-radius: 2px; }
+    .github-icon { font-size: 28px; flex-shrink: 0; }
+    .github-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 4px; }
+    .github-link { font-size: 15px; font-weight: 500; color: var(--ink); }
+    .github-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+    .disclaimer { background: rgba(0,0,0,0.04); border-left: 3px solid rgba(0,0,0,0.12); padding: 16px 20px; margin-top: 48px; font-size: 13px; color: var(--muted); line-height: 1.6; font-style: italic; }
+    .post-footer-tags { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 48px; border-top: 1px solid rgba(0,0,0,0.08); margin-top: 48px; }
+    .pfooter-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: rgba(0,0,0,0.05); padding: 6px 14px; border-radius: 2px; }
+    footer { background: var(--ink); padding: 40px 5vw; border-top: 1px solid rgba(201,168,76,0.15); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+    @media (max-width: 640px) {
+      .jur-grid { grid-template-columns: 1fr; }
+      .compare-row { grid-template-columns: 1fr; }
+      .github-box { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html"><img src="logo.png" alt="TokenWyze" style="height:52px;width:auto;display:block;" /></a>
+    <a class="nav-back" href="index.html">← Back to All Articles</a>
+  </nav>
+
+  <header class="post-hero">
+    <p class="post-breadcrumb">Analysis · Law · Market Structure · South Africa</p>
+    <span class="post-hero-tag">Technical Analysis</span>
+    <h1 class="post-hero-title">
+      The Chain Is
+      <em>Not the Register</em>
+    </h1>
+    <p class="post-hero-sub">
+      Why South African tokenised debt has to keep its authoritative record off-chain,
+      and how to build so that it stops mattering when the law changes.
+    </p>
+    <div class="post-meta-bar">
+      <span>September 2026</span>
+      <span class="dot"></span>
+      <span>13 min read</span>
+      <span class="dot"></span>
+      <span>FMA · Securities Law · Architecture · Tokenised Debt</span>
+    </div>
+  </header>
+
+  <main class="post-body-wrap">
+
+    <p class="post-lead">
+      Ask someone building a tokenised bond where the ownership actually lives and you will
+      usually get an answer about the blockchain. The token is the holding. Transfer the token,
+      transfer the security. It is a clean story and it is the reason tokenisation is interesting
+      at all: if the ledger is the register, then settlement and record-keeping stop being two
+      systems that must be reconciled and become one system that cannot disagree with itself.
+      The story is also, in South Africa, not currently true. And the gap between the story
+      and the legal position is not a technicality to be papered over in a term sheet.
+      It determines the architecture.
+    </p>
+
+    <div class="post-body">
+
+      <h2>The Question Is Narrower Than It Sounds</h2>
+
+      <p>
+        Strip away the vocabulary and there is one question underneath all of this: when the
+        ledger and the register disagree, which one is wrong? Everything else follows. If the
+        ledger is authoritative, a smart contract can enforce transfer restrictions because a
+        failed transfer is a failed transfer of title. If the register is authoritative, the
+        same smart contract enforces nothing legally. It enforces a policy about token movement,
+        and title moves when the register says it moves. The code can look identical in both
+        worlds. The legal consequences are opposite.
+      </p>
+
+      <p>
+        Jurisdictions have started answering this explicitly, and the answers have arrived quickly.
+      </p>
+
+      <h2>Where the World Has Landed</h2>
+
+      <div class="jur-grid">
+        <div class="jur-card">
+          <div class="jur-flag">🇨🇭</div>
+          <div class="jur-name">Switzerland · DLT Act 2021</div>
+          <div class="jur-title">Ledger-based security under Article 973d</div>
+          <div class="jur-desc">A genuine new category of uncertificated security whose legal existence is the register entry itself. Rights transfer with the token. The ledger is not evidence of title; it is title. The deepest answer any jurisdiction has given, now five years old.</div>
+          <div class="jur-verdict">Verdict: Ledger is authoritative by statute.</div>
+        </div>
+        <div class="jur-card">
+          <div class="jur-flag">🇺🇸</div>
+          <div class="jur-name">United States · SEC Staff Statement Jan 2026</div>
+          <div class="jur-title">Distributed ledger can form part of the official register</div>
+          <div class="jur-desc">A share remains an equity security whether it sits in a conventional database or on a blockchain. The SEC approved Nasdaq's rule change in March permitting tokenised securities to trade in the same order book as conventional ones. The DTC holds a no-action letter to run a tokenisation service across pre-approved chains.</div>
+          <div class="jur-verdict">Verdict: Ledger can be part of, not a replacement for, the register.</div>
+        </div>
+        <div class="jur-card">
+          <div class="jur-flag">🇰🇷</div>
+          <div class="jur-name">South Korea · January 2026</div>
+          <div class="jur-title">Electronic Securities Act amended</div>
+          <div class="jur-desc">The National Assembly amended both the Electronic Securities Act and the Capital Markets Act to permit securities to be issued, recorded, and managed on a distributed ledger. Three different legal traditions arriving at the same conclusion within months of each other.</div>
+          <div class="jur-verdict">Verdict: Statutory recognition of DLT as securities register.</div>
+        </div>
+        <div class="jur-card">
+          <div class="jur-flag">🇿🇦</div>
+          <div class="jur-name">South Africa · Financial Markets Act 2012</div>
+          <div class="jur-title">Silence</div>
+          <div class="jur-desc">The FMA was drafted for a dematerialised world, not a distributed one. Security tokens are not defined. The CSD architecture remains the authoritative record. Project Khokha 2 called for the Act to be updated in 2022. The FMA review continues. No statutory equivalent of Article 973d exists.</div>
+          <div class="jur-verdict">Verdict: Register is authoritative. Ledger is not.</div>
+        </div>
+      </div>
+
+      <h2>South Africa Has Not Said So</h2>
+
+      <p>
+        The Financial Markets Act 19 of 2012 is the foundation of South Africa's capital markets,
+        and it was drafted for a dematerialised world, not a distributed one. Uncertificated
+        securities are recorded in registers administered through a licensed central securities
+        depository and its participants. That architecture is not incidental to the Act; it is
+        the Act's answer to who is accountable for the accuracy of the record.
+      </p>
+
+      <p>
+        What South Africa does have is a functioning conduct perimeter. The FSCA has received
+        over 500 crypto asset service provider applications since June 2023 and licensed roughly
+        300, which makes South Africa one of the faster-moving jurisdictions on crypto regulation
+        by any comparative measure. But a CASP licence regulates the conduct of a service
+        provider. It does not make a token a security, and it does not make a ledger entry a
+        transfer of title. Those are different questions living in different statutes, and only
+        one of them has been answered.
+      </p>
+
+      <p>
+        This produces the odd position South Africa now occupies: comparatively advanced
+        crypto-asset regulation, no securities tokenisation regime. Meanwhile the building
+        has started regardless. The JSE has been discussing tokenised bonds. A R100 million
+        tokenised debt issuance has been settled here, working inside the CASP perimeter and
+        focusing on private credit rather than equities. People are issuing. The statute has
+        not caught up. So the question is not whether to wait. Nobody is waiting. The question
+        is what you are permitted to build in the meantime.
+      </p>
+
+      <h2>The Architecture the Law Requires</h2>
+
+      <div class="thesis-box">
+        <span class="thesis-label">The only permissible architecture under current South African law</span>
+        <div class="thesis-text">
+          The off-chain register is the authoritative record of title. The chain is a derived
+          mirror. When they disagree, the chain is corrected. The register is never adjusted
+          to match the chain.
+        </div>
+      </div>
+
+      <p>
+        This is not a compromise. It is what the law requires. A reference implementation of
+        exactly this architecture, a securities register for tokenised private-market debt
+        written to make the design decisions legible in code rather than prose, is available
+        at the GitHub link below. It is not production software. It exists so that the
+        decisions can be inspected and argued with.
+      </p>
+
+      <h2>Three Decisions That Carry the Weight</h2>
+
+      <div class="arch-list">
+        <div class="arch-item">
+          <div class="arch-num">Decision 01</div>
+          <div class="arch-title">The register is event-sourced, not state-stored</div>
+          <div class="arch-body">Holdings are not a table you update. They are a fold over an append-only sequence of events, issuance, transfer, restriction, distribution, each one immutable once written. Corrections are new events that reverse old ones, never edits to existing records.</div>
+          <div class="arch-why">Why: A court or regulator never asks "who holds this today." They ask "who held this on 14 March, and what did you know then." A mutable table cannot answer that. A sequence of events reconstructs any historical position exactly, and shows its own corrections rather than hiding them.</div>
+        </div>
+        <div class="arch-item">
+          <div class="arch-num">Decision 02</div>
+          <div class="arch-title">Transfer restrictions are enforced at the register, not at the token</div>
+          <div class="arch-body">Minimum holdings, lock-ups, maximum holder counts, eligible-transferee tests: these exist because private placements depend on exemptions, and an exemption breached is not a compliance annoyance. It is a public offer you did not intend to make and did not register. Enforcing restrictions in a smart contract is tempting and, under current South African law, wrong.</div>
+          <div class="arch-why">Why: If the token is not title, a smart contract that blocks a transfer has not prevented a transfer of title. It has prevented a token movement while the underlying rights sit wherever the register put them. The restriction engine has to run where the legal effect happens. That is the register.</div>
+        </div>
+        <div class="arch-item">
+          <div class="arch-num">Decision 03</div>
+          <div class="arch-title">Reconciliation is deliberately asymmetric</div>
+          <div class="arch-body">When the register and the chain disagree, the chain is corrected and the register is never adjusted to match. Not as a preference, as a consequence of what the register legally is. If you ever adjust the register to match the chain, you have quietly conceded that the chain is authoritative, and you have done it in an operations script rather than in a statute.</div>
+          <div class="arch-why">Why: Reconciliation logic has to encode a judgement about what kind of problem it is looking at, and that judgement is legal before it is technical.</div>
+        </div>
+      </div>
+
+      <h2>Freeze, Not Burn</h2>
+
+      <p>
+        The sharpest decision in the reconciliation logic concerns addresses holding units with
+        no corresponding register position. Two responses are available:
+      </p>
+
+      <div class="compare-row">
+        <div class="compare-card wrong">
+          <div class="compare-verdict">Wrong answer</div>
+          <div class="compare-title">Burn the units</div>
+          <div class="compare-desc">Restores the invariant in one operation. Tidier engineering. But burning halts the harm and destroys the evidence. Units held by an unknown address is not a data inconsistency. It is a compliance incident.</div>
+        </div>
+        <div class="compare-card right">
+          <div class="compare-verdict">Right answer</div>
+          <div class="compare-title">Freeze the address</div>
+          <div class="compare-desc">Somebody either moved units outside the sanctioned path or there is a defect in the mirror. Either way the correct response is a human investigation, not a script silently closing the file. Freezing halts the harm and preserves the evidence.</div>
+        </div>
+      </div>
+
+      <p>
+        That distinction is what the whole architecture is for. Burning silently resolves
+        a problem that needs to be understood. Freezing holds it open until it is.
+      </p>
+
+      <h2>Why This Survives the Law Changing</h2>
+
+      <p>
+        The obvious objection is that this is throwaway work. Amend the FMA, recognise
+        ledger-based securities, and the off-chain register becomes redundant infrastructure
+        built to satisfy a constraint that no longer exists.
+      </p>
+
+      <p>
+        Look at what the jurisdictions that did legislate actually built. The SEC's position
+        is that the ledger can form part of the official securityholder register, part of, not
+        instead of. The DTC service places tokenised assets inside existing depository
+        infrastructure rather than replacing it. Even Switzerland's Article 973d requires the
+        ledger to meet conditions about integrity, transparency, and the holders' ability to
+        verify their own entries. Nobody who has answered this question has answered it by
+        deleting the register. They have answered it by specifying what a register must do
+        and then permitting a ledger to do it.
+      </p>
+
+      <blockquote>
+        <p>
+          An event-sourced register with the restriction logic and the reconciliation semantics
+          already made explicit is precisely the artefact you migrate from. The path from that
+          to a ledger-based register is a change in where the authoritative sequence is written,
+          not a rebuild of what the sequence means.
+        </p>
+      </blockquote>
+
+      <p>
+        Building against the current constraint honestly is not a delay. It is the shortest
+        route to being ready when the constraint lifts.
+      </p>
+
+      <h2>What This Is Not Arguing</h2>
+
+      <p>
+        This is not an argument that South African law should recognise ledger-based securities,
+        or that it should not. That is a policy question with distributional consequences for
+        the CSD, for participants, for investors relying on an accountable record-keeper, and
+        it belongs to the FMA review and the IFWG.
+      </p>
+
+      <p>
+        The argument is narrower and, I think, harder to dispute: the question of where title
+        lives has a determinate answer in South Africa today, that answer is not the chain,
+        and any tokenised debt structure issued here that behaves as though it were the chain
+        has a defect in it that will not surface until the first dispute.
+      </p>
+
+      <div class="github-box">
+        <div class="github-icon">⌥</div>
+        <div>
+          <div class="github-label">Reference implementation</div>
+          <div class="github-link">github.com/rotenda/tokenised-register</div>
+          <div class="github-desc">A securities register for tokenised private-market debt. The full demonstration output is in the repository and requires nothing to be installed to read. The design decisions can be inspected and argued with.</div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        Written in a personal capacity. Views are my own and do not represent those of any employer or institution. I am not a lawyer, and nothing here is legal advice. The implementation takes current South African law as a constraint and does not express a view on what the law should become.
+      </div>
+
+    </div>
+
+    <div class="post-footer-tags">
+      <span class="pfooter-tag">Securities Law</span>
+      <span class="pfooter-tag">FMA</span>
+      <span class="pfooter-tag">Tokenised Debt</span>
+      <span class="pfooter-tag">Market Structure</span>
+      <span class="pfooter-tag">South Africa</span>
+      <span class="pfooter-tag">Architecture</span>
+      <span class="pfooter-tag">CSD</span>
+      <span class="pfooter-tag">DLT</span>
+      <span class="pfooter-tag">FSCA</span>
+      <span class="pfooter-tag">IFWG</span>
+    </div>
+
+  </main>
+
+  <footer>
+    <a href="index.html"><img src="logo.png" alt="TokenWyze" style="height:40px;width:auto;display:block;" /></a>
+    <p class="footer-copy">© <span id="footer-year"></span> TokenWyze</p>
+    <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+</body>
+</html>
